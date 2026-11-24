@@ -1,0 +1,7 @@
+---
+interface Props { url: string; affiliate: boolean; label?: string }
+const { url, affiliate, label = 'Check price' } = Astro.props;
+// Affiliate links must carry rel="sponsored" per Google's link guidelines.
+const rel = affiliate ? 'sponsored noopener' : 'noopener';
+---
+<a class="btn" href={url} rel={rel} target="_blank">{label}</a>

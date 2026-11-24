@@ -1,0 +1,37 @@
+---
+import { getEntries } from 'astro:content';
+import BuyButton from './BuyButton.astro';
+
+interface Props { products: { collection: 'products'; id: string }[]; specKeys?: string[] }
+const { products, specKeys = [] } = Astro.props;
+const items = await getEntries(products);
+const fmt = (n: number | null) => (n == null ? 'See price' : `$${n.toLocaleString('en-US')}`);
+---
+{items.length > 0 && (
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price (USD)</th>
+          {specKeys.map((k) => <th>{k}</th>)}
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {items.map((p) => (
+          <tr>
+            <td><strong>{p.data.name}</strong><br /><span class="muted">{p.data.brand}</span></td>
+            <td>
+              {fmt(p.data.priceUsd)}
+              {p.data.checked && <span class="muted small"><br />checked {p.data.checked}</span>}
+            </td>
+            {specKeys.map((k) => <td>{p.data.specs[k] ?? '–'}</td>)}
+            <td><BuyButton url={p.data.url} affiliate={p.data.affiliate} /></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}
+<style>.small { font-size: 0.8rem; }</style>
