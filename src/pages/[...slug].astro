@@ -1,0 +1,58 @@
+---
+// Renders every published article at /<slug>/.
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Disclosure from '../components/Disclosure.astro';
+import QuickAnswer from '../components/QuickAnswer.astro';
+import ComparisonTable from '../components/ComparisonTable.astro';
+import Faq from '../components/Faq.astro';
+import AuthorBox from '../components/AuthorBox.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles', ({ data }) => import.meta.env.DEV || !data.draft);
+  return articles.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const url = new URL(`/${entry.id}/`, Astro.site).toString();
+
+const jsonLd: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: d.title,
+    description: d.description,
+    datePublished: d.published.toISOString(),
+    dateModified: d.updated.toISOString(),
+    author: { '@type': 'Person', name: d.author },
+    mainEntityOfPage: url,
+  },
+];
+if (d.faq.length) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: d.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  });
+}
+---
+<Base title={d.title} description={d.description} jsonLd={jsonLd} noindex={d.draft}>
+  <article class="prose">
+    <p class="eyebrow">{d.type}</p>
+    <h1>{d.title}</h1>
+    <p class="muted byline">By {d.author}</p>
+    <Disclosure />
+    <QuickAnswer text={d.quickAnswer} updated={d.updated} />
+    {d.products.length > 0 && <ComparisonTable products={d.products} />}
+    <div class="body"><Content /></div>
+    <Faq items={d.faq} />
+    <AuthorBox author={d.author} />
+  </article>
+</Base>
+<style>
+  .byline { margin: -8px 0 12px; font-size: 0.95rem; }
+  article { margin: 32px 0; }
+  .body :global(table) { display: block; overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+</style>

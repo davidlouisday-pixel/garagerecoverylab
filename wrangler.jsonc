@@ -1,0 +1,10 @@
+// Used only if Cloudflare deploys this as a Worker (Workers Builds).
+// Cloudflare Pages ignores this file; Pages uses build command `npm run build` and output `dist`.
+{
+  "name": "garagerecoverylab",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "sun-home-equinox-2",
+    "name": "Equinox 2-Person Full-Spectrum Infrared Sauna",
+    "brand": "Sun Home Saunas",
+    "category": "sauna",
+    "url": "https://sunhomesaunas.com/",
+    "affiliate": false,
+    "priceUsd": null,
+    "checked": null,
+    "specs": {},
+    "pros": [],
+    "cons": []
+  },
+  {
+    "id": "canuck-cold-tub-chiller",
+    "name": "Acrylic Cold Plunge Tub + Chiller",
+    "brand": "Canuck Cold",
+    "category": "cold-plunge",
+    "url": "https://www.canuckcold.com/",
+    "affiliate": false,
+    "priceUsd": 5999,
+    "checked": "2026-11-24",
+    "specs": {},
+    "pros": [],
+    "cons": []
+  }
+]

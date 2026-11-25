@@ -1,0 +1,16 @@
+---
+interface Props { pros: string[]; cons: string[] }
+const { pros, cons } = Astro.props;
+---
+{(pros.length > 0 || cons.length > 0) && (
+  <div class="pc">
+    <div class="card"><h3>What we like</h3><ul>{pros.map((p) => <li>{p}</li>)}</ul></div>
+    <div class="card"><h3>What could be better</h3><ul>{cons.map((c) => <li>{c}</li>)}</ul></div>
+  </div>
+)}
+<style>
+  .pc { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 20px 0; }
+  .pc h3 { margin-top: 0; }
+  .pc .card:first-child h3 { color: var(--good); }
+  .pc .card:last-child h3 { color: var(--bad); }
+</style>
