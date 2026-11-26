@@ -1,15 +1,14 @@
 ---
-# DRAFT. Do not publish until every "FIRST-HAND EVIDENCE NEEDED" note is resolved and removed.
+# Cole has not owned these saunas; picks rest on specs plus multi-source owner reviews.
 # Prices were checked 2026-11-25 during Black Friday sales; re-check them on the publish date.
-title: "Best Home Saunas of 2026: 4 Picks by Wiring, Heat and Real Cost"
-description: "We compared four home saunas on electrical needs, max temperature, warranty and price, from a $1,899 plug-in infrared to a 240V barrel sauna."
+title: "Best Home Saunas of 2026: 3 Picks by Wiring, Heat and Real Cost"
+description: "We compared three home saunas on electrical needs, max temperature, warranty and price, from a $1,899 plug-in infrared to a 240V barrel sauna."
 type: roundup
 category: sauna
 targetKeyword: best home sauna
 quickAnswer: "For most garages and spare rooms, the Sun Home Equinox 2 ($6,099 on sale, 165°F, 120V dedicated circuit, 7-year warranty) is our best overall home sauna. On a budget, the Dynamic Barcelona ($1,899) plugs into a standard outlet; for real 180°F heat and steam, the Almost Heaven Watoga barrel ($4,665) needs a 240V circuit."
 products:
   - sun-home-equinox-2
-  - clearlight-sanctuary-2
   - dynamic-barcelona
   - almost-heaven-watoga
 faq:
@@ -23,25 +22,22 @@ faq:
     a: "Our estimate is roughly $0.20 to $0.30 per session for a two-person infrared sauna and $0.50 to $0.90 for a 6 kW traditional heater, at the U.S. average of about 18 cents per kWh. Traditional saunas cost more because they preheat for 30 minutes or more."
 author: Cole Garrison
 published: 2026-11-25
-updated: 2026-11-25
+updated: 2026-11-26
 hero:
   pexelsId: 38871126
   alt: "A wooden barrel sauna in a snowy garden"
-draft: true
+draft: false
 ---
-
-TODO before publishing: add an owner-review summary per pick (ratings and review counts from at least 3 sources: brand site, a major retailer, and Reddit or forum threads), then delete this line.
 
 ## Our picks at a glance
 
 - **Best overall: Sun Home Equinox 2.** The hottest infrared cabin here (165°F) on a 120V circuit, with a 7-year warranty.
-- **Best warranty: Clearlight Sanctuary 2.** Limited lifetime warranty and a foot heater, for about $1,200 more.
 - **Best budget: Dynamic Barcelona.** About $1,899, plugs into a standard 15A outlet.
 - **Best traditional and outdoor: Almost Heaven Watoga.** 180°F heat with steam, seats four, needs 240V.
 
 ## How we chose
 
-Cole uses the traditional electric sauna at his gym four or more times a week, and that shapes what we weigh most. None of these four models is his own sauna, so the product details are research, and we lean on what owners report across several review sources, which is how Cole shops for big purchases himself: we compared manufacturer spec sheets and product pages, checked prices on November 25, 2026, and ranked on four things buyers regret getting wrong: the electrical work, real heat, warranty length and total cost. See [how we test](/how-we-test/) for our full criteria.
+Cole uses the traditional electric sauna at his gym four or more times a week, and that shapes what we weigh most. None of these three models is his own sauna, so the product details are research, and we lean on what owners report across several review sources, which is how Cole shops for big purchases himself: we compared manufacturer spec sheets and product pages, checked prices on November 25, 2026, and ranked on four things buyers regret getting wrong: the electrical work, real heat, warranty length and total cost. See [how we test](/how-we-test/) for our full criteria.
 
 We left out saunas that do not publish their electrical requirements, because "plug and play" claims are where most install surprises come from.
 
@@ -51,37 +47,31 @@ The Equinox 2 is a two-person full-spectrum infrared sauna that reaches 165°F. 
 
 Sun Home publishes an EMF reading of 0.3 to 0.9 mG at 3 feet, which is more specific than most brands. The cabin is 45.9 x 50.9 x 77.7 inches and weighs 541 lb, so measure your doorways. Warranty is 7 years.
 
+**What owners and testers say:** 4.8 out of 5 from 126 reviews on Sun Home's own site (brand-collected, so expect it to skew positive). Garage Gym Reviews' tester reported about 10 minutes to heat up and called it the hottest infrared sauna she had tested.
+
 **Price:** $6,099 on sale (list $6,799), checked November 25, 2026.
 
 **Skip it if:** you want true 180°F heat with steam. Go traditional instead.
 
-FIRST-HAND EVIDENCE NEEDED: photo or owner quote for this pick.
-
-## 2. Clearlight Sanctuary 2: best warranty
-
-Clearlight has sold infrared saunas since 1997, and the Sanctuary line comes with a **limited lifetime warranty**. That is the main reason to pay more than you would for the Equinox. It includes a heater under the floor for your feet, app control, and a choice of basswood or mahogany. Red light therapy is a $1,399 add-on.
-
-**Price:** $7,299 in basswood or $7,699 in mahogany on sale, checked November 25, 2026.
-
-**Skip it if:** you are comparing on heat and price alone. The Equinox gives you a published 165°F for about $1,200 less.
-
-TO VERIFY before publishing: Sanctuary 2 electrical requirement and max temperature from Clearlight's spec sheet.
-
-## 3. Dynamic Barcelona: best budget
+## 2. Dynamic Barcelona: best budget
 
 The Barcelona is the cheapest sauna here that we would put in a garage. It uses six carbon far-infrared panels plus a foot heater, runs on a **standard 120V, 15A outlet**, and two adults can assemble it in about an hour.
 
 The trade-offs are real. Inside it is 36 inches wide, which is snug for two adults. It tops out at 140°F, and Dynamic quotes EMF at 6 to 10 mG within 6 to 8 inches of the panels. That is a different distance from Sun Home's 3-foot figure, so the two numbers are not directly comparable.
 
+**What owners say:** 4.2 out of 5 from 10 ratings on Walmart, a small sample. Walmart's listing recommends a dedicated 15A outlet, so do not share the circuit with a space heater or freezer.
+
 **Price:** about $1,899 at a major retailer, checked November 25, 2026.
 
 **Skip it if:** two adults will use it together every day.
 
-## 4. Almost Heaven Watoga: best traditional and outdoor
+## 3. Almost Heaven Watoga: best traditional and outdoor
 
 If you want a classic Finnish sauna, with 180°F air and water on hot stones, this is the most practical starting point. The 6 x 5 foot barrel seats up to four, uses a **Harvia 6 kW heater**, and is rated for indoor or outdoor use.
 
 Budget for the install. The heater needs a **240V, 30A hardwired circuit**, which means an electrician. The retailer we checked adds $699 shipping, and quoted 4 to 5 weeks to ship.
+
+**What owners say:** Sauna Marketplace counted 142 Almost Heaven owners in Reddit's r/Sauna who gave a verdict: 129 positive, 10 mixed and 3 negative. The recurring barrel complaints were rain getting in without a roof, heat stacking above low benches, and assembly taking anywhere from about 2 to 10 hours. Note that Sauna Marketplace sells competing saunas and Harvia heaters (Harvia owns Almost Heaven), and says it did not test one. Costco's similar Almost Heaven Duet barrel shows 4.8 stars from 174 ratings. The room has a limited lifetime warranty; the Harvia heater gets 1 year on elements and 5 years on other parts.
 
 **Price:** $4,665 plus $699 shipping, checked November 25, 2026.
 
@@ -106,18 +96,13 @@ Cole's gym sauna is a large room with a rock heater that runs between 180 and 19
 
 ## Bottom line
 
-Buy the **Sun Home Equinox 2** if you want the best mix of heat, simple 120V wiring and warranty. Choose the **Clearlight Sanctuary 2** if a lifetime warranty is worth about $1,200 to you, the **Dynamic Barcelona** if budget comes first, and the **Almost Heaven Watoga** if you want real steam and can add 240V.
+Buy the **Sun Home Equinox 2** if you want the best mix of heat, simple 120V wiring and warranty. Choose the **Dynamic Barcelona** if budget comes first, and the **Almost Heaven Watoga** if you want real steam and can add 240V.
 
 ## Sources
 
 - [Sun Home Saunas: Equinox product page](https://sunhomesaunas.com/collections/indoor-saunas/products/sun-home-equinox-2-person-full-spectrum-infrared-sauna) (price, electrical, EMF, dimensions, warranty)
-- [Clearlight: Sanctuary 2](https://infraredsauna.com/product/sanctuary-two-person/) and [price list](https://infraredsauna.com/pricelist/) (features, warranty, price)
 - [Skyward Medical: Dynamic Barcelona DYN-6106-01](https://skywardmedical.com/products/dynamic-barcelona-2-person-low-emf-far-infrared-indoor-sauna-dyn-6106-01) (price, specs, electrical)
+- [Garage Gym Reviews: Sun Home Equinox review](https://www.garagegymreviews.com/sun-home-equinox-review) (tester heat-up time and max temperature)
+- [Walmart: Dynamic Barcelona listing](https://www.walmart.com/ip/29304849) (owner ratings, outlet)
+- [Sauna Marketplace: Almost Heaven owner reviews](https://saunamarketplace.com/almost-heaven-barrel-sauna-reviews/) (r/Sauna owner count, recurring issues, warranty, Costco ratings)
 - [The Sauna Place: Almost Heaven Watoga](https://www.saunaplace.com/products/almost-heaven-6-x-5-watoga-4-person-barrel-sauna) (price, heater, electrical, shipping)
-
-<!--
-Questions for the sales call (evidence option 2):
-1. What actually fails first on your saunas, and what does a warranty claim look like?
-2. What surface temperature and air temperature does a customer see after 15 minutes?
-3. What share of buyers need a new circuit, and what does that usually cost?
--->

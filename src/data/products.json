@@ -64,7 +64,7 @@
     "checked": "2026-11-25",
     "specs": {
       "Type": "Far infrared (carbon)",
-      "Electrical": "120V, standard 15A outlet",
+      "Electrical": "120V, 15A outlet (dedicated recommended)",
       "Max temp": "140°F",
       "Warranty": "See manufacturer"
     },
@@ -93,7 +93,7 @@
       "Type": "Traditional (Harvia 6 kW electric)",
       "Electrical": "240V, 30A hardwired",
       "Max temp": "180°F",
-      "Warranty": "See manufacturer"
+      "Warranty": "Lifetime on room; heater 1 yr elements, 5 yr parts"
     },
     "pros": [
       "Real traditional heat with steam from the stones",
@@ -103,7 +103,8 @@
     "cons": [
       "Needs an electrician for a 240V, 30A circuit",
       "Retailer adds $699 shipping; ships in about 4 to 5 weeks",
-      "DIY assembly of a barrel kit takes a weekend, not an hour"
+      "DIY assembly of a barrel kit takes a weekend, not an hour",
+      "Barrel owners often add a roof or cover to stop rain leaks"
     ],
     "image": null
   },
