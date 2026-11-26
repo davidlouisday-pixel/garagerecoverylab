@@ -1,28 +1,32 @@
 ---
+import { categories } from '../data/categories';
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
-  <div class="wrap cols">
-    <div>
-      <strong>GarageRecoveryLab</strong>
-      <p class="muted">Independent reviews of saunas, cold plunges, hot tubs, massage chairs and garage gym gear.</p>
+  <div class="container">
+    <div class="cols">
+      <div class="about">
+        <a class="wordmark" href="/">GarageRecoveryLab</a>
+        <p>Independent reviews of saunas, cold plunges, hot tubs, massage chairs and garage gym gear.</p>
+      </div>
+      <nav aria-label="Categories">
+        <h2>Categories</h2>
+        <ul>{categories.map((c) => <li><a href={`/${c.slug}/`}>{c.title}</a></li>)}</ul>
+      </nav>
+      <nav aria-label="Footer">
+        <h2>The site</h2>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/how-we-test/">How we test</a></li>
+          <li><a href="/affiliate-disclosure/">Affiliate disclosure</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav aria-label="Footer">
-      <a href="/about/">About</a>
-      <a href="/how-we-test/">How we test</a>
-      <a href="/affiliate-disclosure/">Affiliate disclosure</a>
-      <a href="/privacy/">Privacy</a>
-      <a href="/contact/">Contact</a>
-    </nav>
-  </div>
-  <div class="wrap fine muted">
-    © {year} GarageRecoveryLab. We may earn a commission when you buy through links on this site, at no extra cost to you.
-    Nothing here is medical advice; talk to your doctor before starting heat or cold therapy.
+    <p class="fine">
+      © {year} GarageRecoveryLab. We may earn a commission when you buy through links on this site, at no extra cost to you.
+      Nothing here is medical advice; talk to your doctor before starting heat or cold therapy. Header photographs via <a href="https://www.pexels.com/" rel="nofollow noopener" target="_blank">Pexels</a>.
+    </p>
   </div>
 </footer>
-<style>
-  .site-footer { border-top: 1px solid var(--line); margin-top: 64px; padding: 32px 0 24px; background: var(--surface); }
-  .cols { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
-  nav { display: flex; flex-direction: column; gap: 6px; }
-  .fine { font-size: 0.85rem; margin-top: 16px; }
-</style>

@@ -1,15 +1,13 @@
 ---
-interface Props { text: string; updated: Date }
-const { text, updated } = Astro.props;
+interface Props { text: string }
+const { text } = Astro.props;
 ---
-<section class="quick" aria-label="Quick answer">
-  <p class="eyebrow">Quick answer</p>
+<section class="quick well" aria-labelledby="quick-answer">
+  <h2 id="quick-answer" class="quick-head">Quick answer</h2>
   <p class="answer">{text}</p>
-  <p class="muted small">Last updated <time datetime={updated.toISOString().slice(0, 10)}>{updated.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</time></p>
 </section>
 <style>
-  .quick { background: var(--ember-soft); border: 1px solid var(--line); border-left: 4px solid var(--ember); border-radius: var(--radius); padding: 16px 20px; margin: 8px 0 28px; }
-  .quick .eyebrow { margin: 0 0 4px; }
-  .answer { font-size: 1.08rem; margin: 0 0 6px; }
-  .small { font-size: 0.85rem; margin: 0; }
+  .quick { margin-block: var(--space-xl); }
+  .quick-head { font-size: var(--text-lg); margin-bottom: var(--space-xs); }
+  .answer { font-size: var(--text-lead); line-height: 1.45; color: var(--color-ink); max-width: 60ch; }
 </style>

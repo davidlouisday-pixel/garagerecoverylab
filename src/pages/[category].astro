@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import { categories } from '../data/categories';
 import Hero, { pexelsSrc } from '../components/Hero.astro';
+import { typeLabel } from '../data/labels';
 
 export async function getStaticPaths() {
   return categories.map((c) => ({ params: { category: c.slug }, props: { cat: c } }));
@@ -12,29 +13,36 @@ const articles = (await getCollection('articles', ({ data }) => !data.draft && d
   .sort((a, b) => b.data.updated.valueOf() - a.data.updated.valueOf());
 ---
 <Base title={`${cat.title}: Reviews and Buying Guides`} description={cat.blurb} image={cat.hero && pexelsSrc(cat.hero.pexelsId)}>
-  <section class="hub">
-    <p class="eyebrow">Category</p>
-    <h1>{cat.title}</h1>
-    <p class="prose lead">{cat.blurb}</p>
-    {cat.hero && <Hero pexelsId={cat.hero.pexelsId} alt={cat.hero.alt} />}
+  <section class="container hub">
+    <div class="hub-head">
+      <div>
+        <h1>{cat.title}</h1>
+        <p class="standfirst">{cat.blurb}</p>
+      </div>
+      {cat.hero && <Hero pexelsId={cat.hero.pexelsId} alt={cat.hero.alt} class="hub-photo" />}
+    </div>
+    <h2 class="hub-sub">{articles.length === 0 ? 'Coming soon' : `${articles.length} ${articles.length === 1 ? 'guide' : 'guides'}`}</h2>
     {articles.length === 0 ? (
       <p class="muted">Our first {cat.title.toLowerCase()} guides are in progress.</p>
     ) : (
-      <div class="grid">
+      <ol class="rows">
         {articles.map((a) => (
-          <a class="card link" href={`/${a.id}/`}>
-            <span class="eyebrow">{a.data.type}</span>
-            <strong>{a.data.title}</strong>
-            <span class="muted">{a.data.description}</span>
-          </a>
+          <li>
+            <a href={`/${a.id}/`}>
+              <h3>{a.data.title}</h3>
+              <p>{a.data.description}</p>
+              <span class="label">{typeLabel[a.data.type] ?? a.data.type}</span>
+            </a>
+          </li>
         ))}
-      </div>
+      </ol>
     )}
   </section>
 </Base>
 <style>
-  .hub { margin: 32px 0; }
-  .lead { font-size: 1.1rem; }
-  .link { display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: var(--ink); }
-  .link:hover { border-color: var(--ember); }
+  .hub { padding-top: var(--space-2xl); }
+  .hub-head { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: var(--gap-columns); align-items: end; }
+  .hub-head .standfirst { margin-top: var(--space-lg); }
+  .hub-sub { font-size: var(--text-2xl); margin: var(--section-gap-s) 0 var(--space-md); }
+  @media (max-width: 52rem) { .hub-head { grid-template-columns: minmax(0, 1fr); } }
 </style>
