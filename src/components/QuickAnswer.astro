@@ -1,8 +1,8 @@
 ---
-interface Props { text: string }
-const { text } = Astro.props;
+interface Props { text: string; temp?: 'heat' | 'cold' }
+const { text, temp } = Astro.props;
 ---
-<section class="quick well" aria-labelledby="quick-answer">
+<section class:list={['quick', 'well', temp && `well--${temp}`]} aria-labelledby="quick-answer">
   <h2 id="quick-answer" class="quick-head">Quick answer</h2>
   <p class="answer">{text}</p>
 </section>

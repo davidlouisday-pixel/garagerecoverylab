@@ -88,7 +88,7 @@ Cole's gym sauna is a large room with a rock heater that runs between 180 and 19
 
 **Wiring decides more than price.** Standard 15A outlet (small infrared), dedicated 20A circuit (larger infrared), or hardwired 240V (traditional). Ask an electrician for a quote before you order.
 
-**Running cost.** Our estimate at 18 cents per kWh is about $0.20 to $0.30 per infrared session and $0.50 to $0.90 for a 6 kW traditional heater, including preheat. The full math is in [infrared vs traditional sauna](/infrared-vs-traditional-sauna/).
+**Running cost.** Our estimate at 18 cents per kWh is about $0.20 to $0.30 per infrared session and $0.50 to $0.90 for a 6 kW traditional heater, including preheat. The full math is in [infrared vs traditional sauna](/infrared-vs-traditional-sauna/), or run your own numbers in our [sauna running cost calculator](/sauna-running-cost-calculator/).
 
 **Space.** Leave the wall and ceiling clearance in the spec sheet, plus room to open the door. Heavy cabins need a level floor.
 

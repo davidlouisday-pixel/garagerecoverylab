@@ -6,12 +6,15 @@ const year = new Date().getFullYear();
   <div class="container">
     <div class="cols">
       <div class="about">
-        <a class="wordmark" href="/">GarageRecoveryLab</a>
+        <a class="wordmark" href="/">
+          <svg viewBox="0 0 30 20" aria-hidden="true"><circle class="w-heat" cx="10" cy="10" r="9" fill="currentColor" /><circle class="w-cold" cx="20" cy="10" r="9" fill="currentColor" fill-opacity="0.9" /></svg>
+          GarageRecoveryLab
+        </a>
         <p>Independent reviews of saunas, cold plunges, hot tubs, massage chairs and garage gym gear.</p>
       </div>
       <nav aria-label="Categories">
         <h2>Categories</h2>
-        <ul>{categories.map((c) => <li><a href={`/${c.slug}/`}>{c.title}</a></li>)}</ul>
+        <ul>{categories.map((c) => <li><a href={`/${c.slug}/`}>{c.title}</a></li>)}<li><a href="/sauna-running-cost-calculator/">Sauna running cost calculator</a></li></ul>
       </nav>
       <nav aria-label="Footer">
         <h2>The site</h2>

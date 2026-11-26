@@ -12,7 +12,10 @@
   --color-paper: oklch(97% 0.007 86); --color-paper-2: oklch(94% 0.010 86); --color-paper-3: oklch(91% 0.012 84);
   --color-ink: oklch(16% 0.012 280); --color-ink-2: oklch(29% 0.011 280); --color-muted: oklch(48% 0.010 75);
   --color-rule: oklch(85% 0.009 85); --color-rule-2: oklch(64% 0.010 80);
-  --color-accent: oklch(49% 0.130 152); --color-accent-ink: oklch(98% 0.005 88); --color-focus: oklch(52% 0.135 152);
+  --color-heat: oklch(56% 0.175 42); --color-heat-deep: oklch(50% 0.165 40); --color-heat-soft: oklch(94% 0.035 55);
+  --color-cold: oklch(52% 0.135 248); --color-cold-deep: oklch(44% 0.12 250); --color-cold-soft: oklch(94% 0.025 240);
+  --color-heat-bright: oklch(72% 0.17 50); --color-cold-bright: oklch(74% 0.12 240);
+  --color-accent: var(--color-heat); --color-accent-ink: oklch(98% 0.005 88); --color-focus: var(--color-cold);
   --font-display: "Bricolage Grotesque", ui-sans-serif, sans-serif; --font-body: "Source Serif 4", ui-serif, Georgia, serif;
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --rule-heavy: 4px; --shadow-card: none;
   --tracking-display: -0.012em; --display-weight: 800;

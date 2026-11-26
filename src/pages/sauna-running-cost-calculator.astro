@@ -1,0 +1,111 @@
+---
+// Free calculator: estimated electricity cost of running a home sauna.
+// Assumes the heater draws its full rated power for the whole preheat and session, so results are an upper bound.
+import Base from '../layouts/Base.astro';
+
+const presets = [
+  { label: 'Small infrared (1 to 2 person), about 1.6 kW', kw: 1.6, preheat: 10 },
+  { label: 'Large infrared (3 to 4 person), about 3 kW', kw: 3, preheat: 15 },
+  { label: 'Traditional, 6 kW heater', kw: 6, preheat: 30 },
+  { label: 'Traditional, 9 kW heater', kw: 9, preheat: 40 },
+];
+const faq = [
+  { q: 'How much does it cost to run a sauna?', a: 'At the U.S. average of about 18 cents per kWh, a small infrared sauna costs roughly $0.10 to $0.15 per session and a 6 kW traditional sauna up to about $0.90 per session including a 30-minute preheat. Use the calculator for your own heater, rate and routine.' },
+  { q: 'Does a sauna use a lot of electricity?', a: 'A traditional sauna heater is one of the largest loads in a home while it runs, often 6 to 9 kW. Because sessions are short, monthly cost is usually modest: four sessions a week on a 6 kW heater is roughly $15 a month at 18 cents per kWh.' },
+  { q: 'Is an infrared sauna cheaper to run than a traditional one?', a: 'Yes. Infrared heaters draw less power and need little or no preheat, so they typically cost a fraction of a traditional sauna per session.' },
+];
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Sauna Running Cost Calculator', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' } },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+<Base title="Sauna Running Cost Calculator: Cost per Session and per Month" description="Work out what your home sauna costs to run per session, month and year from heater size, preheat time, session length and your electricity rate." jsonLd={jsonLd}>
+  <article class="container calc" data-temp="heat">
+    <p class="label crumbs"><a href="/saunas/">Saunas</a></p>
+    <h1>Sauna running cost calculator</h1>
+    <p class="standfirst">Enter your heater and routine to see the cost per session, month and year.</p>
+
+    <form class="calc-grid well well--heat" id="calc" onsubmit="return false">
+      <div class="fields">
+        <label>Sauna type
+          <select id="preset">
+            {presets.map((p, i) => <option value={i} data-kw={p.kw} data-preheat={p.preheat}>{p.label}</option>)}
+          </select>
+        </label>
+        <label>Heater power (kW)<input id="kw" type="number" min="0.5" max="20" step="0.1" value="1.6" inputmode="decimal" /></label>
+        <label>Preheat (minutes)<input id="preheat" type="number" min="0" max="90" step="5" value="10" inputmode="numeric" /></label>
+        <label>Session length (minutes)<input id="session" type="number" min="5" max="90" step="5" value="20" inputmode="numeric" /></label>
+        <label>Sessions per week<input id="perweek" type="number" min="1" max="21" step="1" value="4" inputmode="numeric" /></label>
+        <label>Electricity rate (cents per kWh)<input id="rate" type="number" min="1" max="100" step="0.5" value="18" inputmode="decimal" /></label>
+      </div>
+      <output class="results" for="kw preheat session perweek rate" aria-live="polite">
+        <div><span class="label">Per session</span><span class="big" id="r-session">$0.14</span></div>
+        <div><span class="label">Per month</span><span class="big" id="r-month">$2.50</span></div>
+        <div><span class="label">Per year</span><span class="big" id="r-year">$30</span></div>
+        <p class="label note" id="r-kwh">0.8 kWh per session</p>
+      </output>
+    </form>
+
+    <div class="calc-body">
+      <h2>How we calculate it</h2>
+      <p>Energy per session is heater power times the preheat plus session time. We assume the heater runs at full power the whole time. Real heaters cycle off once they reach temperature, so treat the result as an upper bound. Month figures use 4.33 weeks.</p>
+      <p>The default rate is about the U.S. residential average. Your bill shows your own rate in cents per kWh.</p>
+      <p>Choosing between types? Read <a href="/infrared-vs-traditional-sauna/">infrared vs traditional saunas</a> and our <a href="/best-home-sauna/">best home saunas</a>, compared on wiring, heat and real cost.</p>
+
+      <section class="faq-mini" aria-labelledby="calc-faq">
+        <h2 id="calc-faq">Frequently asked questions</h2>
+        {faq.map((f) => (<><h3>{f.q}</h3><p>{f.a}</p></>))}
+      </section>
+    </div>
+  </article>
+</Base>
+<script is:inline>
+  (function () {
+    var $ = function (id) { return document.getElementById(id); };
+    var money = function (n) { return '$' + (n < 10 ? n.toFixed(2) : Math.round(n).toLocaleString('en-US')); };
+    function calc() {
+      var kw = parseFloat($('kw').value) || 0, pre = parseFloat($('preheat').value) || 0, ses = parseFloat($('session').value) || 0;
+      var wk = parseFloat($('perweek').value) || 0, rate = (parseFloat($('rate').value) || 0) / 100;
+      var kwh = kw * (pre + ses) / 60, per = kwh * rate;
+      $('r-session').textContent = money(per);
+      $('r-month').textContent = money(per * wk * 4.33);
+      $('r-year').textContent = money(per * wk * 52);
+      $('r-kwh').textContent = kwh.toFixed(1) + ' kWh per session';
+    }
+    $('preset').addEventListener('change', function (e) {
+      var o = e.target.selectedOptions[0];
+      $('kw').value = o.dataset.kw; $('preheat').value = o.dataset.preheat; calc();
+    });
+    ['kw', 'preheat', 'session', 'perweek', 'rate'].forEach(function (id) { $(id).addEventListener('input', calc); });
+    calc();
+  })();
+</script>
+<style>
+  .calc { padding-top: var(--space-2xl); }
+  .crumbs { margin-bottom: var(--space-md); }
+  .crumbs a { color: var(--color-heat); font-weight: 700; }
+  .calc .standfirst { margin-top: var(--space-lg); }
+  .calc-grid { margin-top: var(--space-xl); display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-xl); max-width: 1100px; }
+  .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); }
+  .fields label:first-child { grid-column: 1 / -1; }
+  label { display: grid; gap: var(--space-2xs); font-size: var(--text-sm); color: var(--color-ink); }
+  input, select { min-height: 52px; padding: 0 var(--space-sm); border: 1px solid var(--color-rule-2); border-radius: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: 1.0625rem; }
+  input:hover, select:hover { border-color: var(--color-ink-2); }
+  input:focus-visible, select:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 0; border-color: var(--color-ink); }
+  .results { display: grid; gap: var(--space-md); align-content: start; border-left: 1px solid var(--color-rule-2); padding-left: var(--space-xl); }
+  .results div { display: grid; }
+  .big { font-family: var(--font-display); font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; font-size: clamp(2.5rem, 4vw, 4rem); line-height: 1; color: var(--color-ink); font-variant-numeric: lining-nums tabular-nums; }
+  .results div:first-child .big { color: var(--color-heat-deep); }
+  .calc-body { max-width: 760px; margin-top: var(--space-2xl); }
+  .calc-body h2 { font-size: var(--text-2xl); margin-top: var(--space-2xl); }
+  .calc-body p { margin-top: var(--space-md); }
+  .faq-mini h3 { font-size: var(--text-xl); margin-top: var(--space-lg); }
+  .faq-mini p { margin-top: var(--space-xs); }
+  @media (max-width: 52rem) {
+    .calc-grid { grid-template-columns: minmax(0, 1fr); }
+    .results { order: -1; border-left: 0; padding-left: 0; border-bottom: 1px solid var(--color-rule-2); padding-bottom: var(--space-lg); grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .results .note { grid-column: 1 / -1; }
+    .big { font-size: 2rem; }
+  }
+  @media (max-width: 30rem) { .fields { grid-template-columns: minmax(0, 1fr); } }
+</style>
