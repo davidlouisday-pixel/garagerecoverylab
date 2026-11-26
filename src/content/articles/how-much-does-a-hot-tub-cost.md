@@ -16,7 +16,7 @@ faq:
     a: "A filled hot tub can weigh several thousand pounds, so it needs a level, solid base. A concrete slab typically costs $500 to $2,500; gravel or prefabricated plastic pads cost less. A deck must be rated for the load."
   - q: "How long does a hot tub last?"
     a: "Most last about 5 to 20 years. Inflatables sit at the low end; well-maintained premium acrylic tubs at the high end. Budget for a heater replacement every 7 to 10 years and a pump every 5 to 7."
-author: GarageRecoveryLab Editors
+author: Cole Garrison
 published: 2026-11-25
 updated: 2026-11-25
 hero:

@@ -35,7 +35,7 @@ const articles = defineCollection({
     quickAnswer: z.string(),
     products: z.array(reference('products')).default([]),
     faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
-    author: z.string().default('GarageRecoveryLab Editors'),
+    author: z.string().default('Cole Garrison'),
     published: z.coerce.date(),
     updated: z.coerce.date(),
     draft: z.boolean().default(true),

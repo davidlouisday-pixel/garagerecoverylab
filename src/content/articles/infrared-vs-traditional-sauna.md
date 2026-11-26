@@ -16,7 +16,7 @@ faq:
     a: "Infrared saunas are usable in about 10 to 15 minutes. Traditional saunas typically take 30 to 45 minutes to reach full temperature."
   - q: "Can I pour water on the rocks in an infrared sauna?"
     a: "No. Infrared saunas use dry heat from emitter panels and have no rocks. Only traditional saunas with a stone heater let you create steam, called löyly."
-author: GarageRecoveryLab Editors
+author: Cole Garrison
 published: 2026-11-25
 updated: 2026-11-25
 hero:

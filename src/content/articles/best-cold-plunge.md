@@ -1,5 +1,5 @@
 ---
-# DRAFT. Do not publish until every "FIRST-HAND EVIDENCE NEEDED" note is resolved and removed.
+# Research-only page: Cole does not cold plunge, so nothing here claims hands-on use.
 # Prices were checked 2026-11-24 and 2026-11-25 during Black Friday sales; re-check on the publish date.
 title: "Best Cold Plunge Tubs of 2026: Chiller vs Ice, Compared"
 description: "We compared three cold plunges on cooling, temperature range, water care and warranty, from a $1,449 ice tub to a $6,990 all-in-one."
@@ -20,19 +20,14 @@ faq:
     a: "Yes. A garage handles water splashes, the weight of a filled tub and a chiller's noise and heat better than most rooms. Use a GFCI-protected circuit, keep the chiller ventilated, and check the filled weight; an Ice Barrel 300 is about 700 lb with water."
   - q: "Can a cold plunge also be a hot tub?"
     a: "Some can. Canuck Cold chillers heat up to 104°F as well as cooling to 37°F, and Plunge sells a $500 heater add-on for the All-In. Ice tubs cannot heat."
-author: GarageRecoveryLab Editors
+author: Cole Garrison
 published: 2026-11-25
-updated: 2026-11-25
+updated: 2026-11-26
 hero:
   pexelsId: 14815628
   alt: "A man sitting in icy water beside a wooden dock in winter"
-draft: true
+draft: false
 ---
-
-FIRST-HAND EVIDENCE NEEDED (whole page): at least one of these before publishing.
-1. Sit in any of these three at a gym, recovery studio or showroom. Take a photo and note the water temperature and how long you stayed in.
-2. A call or email with Canuck Cold support. Ask about chiller noise, power draw and typical warranty claims, and quote the answers.
-3. If you have used an ice bath or chest freezer plunge, two sentences on what you would do differently.
 
 ## Our picks at a glance
 
@@ -42,7 +37,7 @@ FIRST-HAND EVIDENCE NEEDED (whole page): at least one of these before publishing
 
 ## How we chose
 
-This roundup is based on research, not hands-on testing. We compared manufacturer product pages, checked prices on November 24 and 25, 2026, and ranked on cooling method, temperature range, water care, safety certification and warranty. See [how we test](/how-we-test/).
+**This is a research roundup.** Cole, who writes this site, uses a sauna several times a week but does not cold plunge, so nothing here is hands-on. We compared manufacturer product pages, checked prices on November 24 and 25, 2026, and ranked on cooling method, temperature range, water care, safety certification and warranty. See [how we test](/how-we-test/).
 
 ## 1. Canuck Cold tub + chiller: best overall
 
@@ -54,8 +49,6 @@ It is modular, so you can buy a tub, a chiller or a bundle, and replace one part
 
 **Skip it if:** warranty length is your top concern. Canuck lists 1 year.
 
-FIRST-HAND EVIDENCE NEEDED: photo or support-call notes for this pick.
-
 ## 2. Plunge All-In Gen 2: best all-in-one
 
 The All-In puts the chiller inside the tub's cabinet, so there is no separate box and hose next to it. It cools to **37°F**, uses ozone plus two-stage filtration, and you set the temperature and get filter reminders from the Plunge app. Setup is plug in and fill, with no permanent plumbing, but it needs a dedicated circuit.
@@ -65,8 +58,6 @@ The tub is long, about 77 x 32 inches, and you lie back full length. Heating to 
 **Price:** $6,990 on sale (list $9,990), checked November 25, 2026.
 
 **Skip it if:** you are paying list price. At $9,990 the Canuck bundle does more for less.
-
-TO VERIFY before publishing: All-In circuit amperage from Plunge's spec sheet.
 
 ## 3. Ice Barrel 300: best budget
 

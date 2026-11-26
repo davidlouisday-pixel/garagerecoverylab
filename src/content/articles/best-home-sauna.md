@@ -21,7 +21,7 @@ faq:
     a: "It depends on the type. Small infrared saunas like the Dynamic Barcelona use a standard 120V, 15A outlet. Larger infrared saunas like the Sun Home Equinox need a dedicated 120V, 20A circuit, and traditional saunas like the Almost Heaven Watoga need a hardwired 240V, 30A circuit."
   - q: "How much does it cost to run a home sauna?"
     a: "Our estimate is roughly $0.20 to $0.30 per session for a two-person infrared sauna and $0.50 to $0.90 for a 6 kW traditional heater, at the U.S. average of about 18 cents per kWh. Traditional saunas cost more because they preheat for 30 minutes or more."
-author: GarageRecoveryLab Editors
+author: Cole Garrison
 published: 2026-11-25
 updated: 2026-11-25
 hero:
@@ -30,10 +30,7 @@ hero:
 draft: true
 ---
 
-FIRST-HAND EVIDENCE NEEDED (whole page): at least one of these before publishing.
-1. Your own photos of any of these four saunas, at a Costco, dealer showroom or a friend's house. Note the date and where.
-2. A 10-minute phone call with Sun Home or Clearlight sales. Ask the three questions at the end of this file and write down the answers.
-3. If you own or use any sauna, two sentences on what you would buy differently.
+DAVID INPUT NEEDED before publishing: answers to the sauna questions in the thread fill the "From Cole's own sauna" section below. Then delete this line.
 
 ## Our picks at a glance
 
@@ -44,7 +41,7 @@ FIRST-HAND EVIDENCE NEEDED (whole page): at least one of these before publishing
 
 ## How we chose
 
-This roundup is based on research, not hands-on testing. We compared manufacturer spec sheets and product pages, checked prices on November 25, 2026, and ranked on four things buyers regret getting wrong: the electrical work, real heat, warranty length and total cost. See [how we test](/how-we-test/) for our full criteria.
+Cole uses an electric sauna four or more times a week, and that routine shapes what we weigh most. None of these four models is his own sauna, so the product details are research: we compared manufacturer spec sheets and product pages, checked prices on November 25, 2026, and ranked on four things buyers regret getting wrong: the electrical work, real heat, warranty length and total cost. See [how we test](/how-we-test/) for our full criteria.
 
 We left out saunas that do not publish their electrical requirements, because "plug and play" claims are where most install surprises come from.
 
@@ -89,6 +86,10 @@ Budget for the install. The heater needs a **240V, 30A hardwired circuit**, whic
 **Price:** $4,665 plus $699 shipping, checked November 25, 2026.
 
 **Skip it if:** you cannot add a 240V circuit, or you want to use it on short notice. Traditional saunas preheat for 30 to 45 minutes.
+
+## From Cole's own sauna
+
+[DAVID: 3 to 5 sentences in your words. Which type it is (heater with rocks or infrared panels), what temperature and how long you usually run it, whether you go before or after training, and what you'd check before buying again, like wiring, heat-up time or bench height.]
 
 ## What to know before you buy
 
