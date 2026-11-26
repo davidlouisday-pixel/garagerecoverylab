@@ -5,6 +5,8 @@
   "compatibility_date": "2026-11-01",
   // Build the static site before deploying, in case the dashboard has no build command.
   "build": { "command": "npm run build" },
+  // Required by `wrangler preview`, which Workers Builds runs for non-main branches (PR previews).
+  "previews": {},
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page"
