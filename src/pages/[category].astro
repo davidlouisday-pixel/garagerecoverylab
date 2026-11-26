@@ -13,7 +13,7 @@ const articles = (await getCollection('articles', ({ data }) => !data.draft && d
   .sort((a, b) => b.data.updated.valueOf() - a.data.updated.valueOf());
 ---
 <Base title={`${cat.title}: Reviews and Buying Guides`} description={cat.blurb} image={cat.hero && pexelsSrc(cat.hero.pexelsId)}>
-  <section class="container hub">
+  <section class="container hub" data-temp={cat.temp}>
     <div class="hub-head">
       <div>
         <h1>{cat.title}</h1>
@@ -27,7 +27,7 @@ const articles = (await getCollection('articles', ({ data }) => !data.draft && d
     ) : (
       <ol class="rows">
         {articles.map((a) => (
-          <li>
+          <li data-temp={cat.temp}>
             <a href={`/${a.id}/`}>
               <h3>{a.data.title}</h3>
               <p>{a.data.description}</p>
@@ -43,6 +43,7 @@ const articles = (await getCollection('articles', ({ data }) => !data.draft && d
   .hub { padding-top: var(--space-2xl); }
   .hub-head { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: var(--gap-columns); align-items: end; }
   .hub-head .standfirst { margin-top: var(--space-lg); }
+  .hub h1 { border-top: 6px solid var(--temp, var(--color-ink)); padding-top: var(--space-md); }
   .hub-sub { font-size: var(--text-2xl); margin: var(--section-gap-s) 0 var(--space-md); }
   @media (max-width: 52rem) { .hub-head { grid-template-columns: minmax(0, 1fr); } }
 </style>

@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import { categories } from '../data/categories';
+import { categories, tempOf } from '../data/categories';
 import { typeLabel } from '../data/labels';
 
 const latest = (await getCollection('articles', ({ data }) => !data.draft))
@@ -11,9 +11,9 @@ const latest = (await getCollection('articles', ({ data }) => !data.draft))
 const sauna = categories.find((c) => c.key === 'sauna');
 // Figures from the best home sauna guide's wiring section.
 const wiring = [
-  { figure: '15A', label: 'Small infrared saunas run on a standard household outlet.' },
-  { figure: '20A', label: 'Larger infrared cabins need their own dedicated 120V circuit.' },
-  { figure: '240V', label: 'Traditional heaters are hardwired, which means an electrician.' },
+  { figure: '15A', fig: 'cold', label: 'Small infrared saunas run on a standard household outlet.' },
+  { figure: '20A', fig: 'cold', label: 'Larger infrared cabins need their own dedicated 120V circuit.' },
+  { figure: '240V', fig: 'heat', label: 'Traditional heaters are hardwired, which means an electrician.' },
 ];
 ---
 <Base
@@ -38,7 +38,7 @@ const wiring = [
       <h2 id="latest" class="block-head">Latest guides</h2>
       <ol class="rows">
         {latest.map((a) => (
-          <li>
+          <li data-temp={tempOf(a.data.category)}>
             <a href={`/${a.id}/`}>
               <h3>{a.data.title}</h3>
               <p>{a.data.description}</p>
@@ -58,7 +58,7 @@ const wiring = [
       </div>
       <dl class="figures">
         {wiring.map((w) => (
-          <div>
+          <div style={`--fig: var(--color-${w.fig}-bright)`}>
             <dt>{w.figure}</dt>
             <dd>{w.label}</dd>
           </div>
@@ -72,7 +72,7 @@ const wiring = [
     <h2 id="browse" class="block-head">Browse by category</h2>
     <ul class="cats">
       {categories.map((c) => (
-        <li>
+        <li data-temp={c.temp}>
           <a href={`/${c.slug}/`}>
             <h3>{c.title}</h3>
             <p>{c.blurb}</p>
@@ -83,7 +83,7 @@ const wiring = [
   </section>
 
   <section class="container block" aria-labelledby="who">
-    <div class="who opens">
+    <div class="who opens who--heat">
       <h2 id="who" class="who-head">Who writes this</h2>
       <div>
         <p class="standfirst who-text">Cole Garrison trains seven days a week and sits in his gym's 180 to 190°F sauna after training, four or more times a week. What he writes from his own use is labeled. Everything else is research, and says so.</p>
@@ -113,7 +113,7 @@ const wiring = [
   .figures { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: var(--space-2xl) 0 0; border-top: var(--rule-hair) solid color-mix(in oklab, var(--color-paper) 35%, transparent); }
   .figures > div { padding: var(--space-lg) var(--space-lg) 0 0; }
   .figures > div + div { border-left: var(--rule-hair) solid color-mix(in oklab, var(--color-paper) 35%, transparent); padding-left: var(--space-lg); }
-  .figures dt { font-family: var(--font-display); font-weight: var(--display-weight); font-variation-settings: "wdth" 75, "opsz" 96; font-size: clamp(4rem, 9vw, 9rem); line-height: 0.9; letter-spacing: var(--tracking-display); font-variant-numeric: lining-nums tabular-nums; color: var(--color-paper); }
+  .figures dt { font-family: var(--font-display); font-weight: var(--display-weight); font-variation-settings: "wdth" 75, "opsz" 96; font-size: clamp(4rem, 9vw, 9rem); line-height: 0.9; letter-spacing: var(--tracking-display); font-variant-numeric: lining-nums tabular-nums; color: var(--fig); }
   .figures dd { margin: var(--space-sm) 0 0; color: var(--color-paper-3); max-width: 28ch; }
   .band-link { display: inline-block; margin-top: var(--space-2xl); color: var(--color-paper); font-family: var(--font-display); font-weight: 500; font-variation-settings: "opsz" 12; text-decoration-color: color-mix(in oklab, var(--color-paper) 50%, transparent); }
   .band-link:hover { color: var(--color-paper); text-decoration-color: var(--color-paper); }
@@ -125,7 +125,7 @@ const wiring = [
   }
 
   .cats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xl) var(--gap-columns); }
-  .cats a { display: block; height: 100%; border-top: var(--rule-heavy) solid var(--color-ink); padding-top: var(--space-md); text-decoration: none; color: inherit; }
+  .cats a { display: block; height: 100%; border-top: var(--rule-heavy) solid var(--temp, var(--color-ink)); padding-top: var(--space-md); text-decoration: none; color: inherit; }
   .cats h3 { font-size: var(--text-2xl); }
   .cats a:hover h3 { text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--color-accent); text-underline-offset: 0.12em; }
   .cats p { margin-top: var(--space-xs); font-size: 1rem; }
@@ -134,6 +134,7 @@ const wiring = [
 
   .who { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--gap-columns); }
   .who-head { font-size: var(--text-2xl); }
+  .who--heat { border-top-color: var(--color-heat); }
   .who-text { font-size: clamp(1.5rem, 1.4vw + 1rem, 2.25rem); line-height: 1.25; max-width: 36ch; }
   .who-links { display: flex; flex-wrap: wrap; gap: var(--space-lg); margin-top: var(--space-lg); font-family: var(--font-display); font-weight: 500; font-variation-settings: "opsz" 12; }
   .who-links a { color: var(--color-ink); }
