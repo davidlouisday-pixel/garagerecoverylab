@@ -18,6 +18,8 @@ const products = defineCollection({
     specs: z.record(z.string(), z.string()).default({}),
     pros: z.array(z.string()).default([]),
     cons: z.array(z.string()).default([]),
+    // Only licensed images: affiliate network creatives, a brand media kit, or our own photos.
+    image: z.object({ src: z.string(), alt: z.string(), credit: z.string() }).nullable().default(null),
   }),
 });
 
