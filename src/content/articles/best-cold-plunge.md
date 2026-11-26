@@ -23,6 +23,9 @@ faq:
 author: GarageRecoveryLab Editors
 published: 2026-11-25
 updated: 2026-11-25
+hero:
+  pexelsId: 14815628
+  alt: "A man sitting in icy water beside a wooden dock in winter"
 draft: true
 ---
 

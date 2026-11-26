@@ -7,6 +7,7 @@ import QuickAnswer from '../components/QuickAnswer.astro';
 import ComparisonTable from '../components/ComparisonTable.astro';
 import Faq from '../components/Faq.astro';
 import AuthorBox from '../components/AuthorBox.astro';
+import Hero, { pexelsSrc } from '../components/Hero.astro';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles', ({ data }) => import.meta.env.DEV || !data.draft);
@@ -38,11 +39,12 @@ if (d.faq.length) {
   });
 }
 ---
-<Base title={d.title} description={d.description} jsonLd={jsonLd} noindex={d.draft}>
+<Base title={d.title} description={d.description} jsonLd={jsonLd} noindex={d.draft} image={d.hero && pexelsSrc(d.hero.pexelsId)}>
   <article class="prose">
     <p class="eyebrow">{d.type}</p>
     <h1>{d.title}</h1>
     <p class="muted byline">By {d.author}</p>
+    {d.hero && <Hero pexelsId={d.hero.pexelsId} alt={d.hero.alt} />}
     <Disclosure />
     <QuickAnswer text={d.quickAnswer} updated={d.updated} />
     {d.products.length > 0 && <ComparisonTable products={d.products} />}

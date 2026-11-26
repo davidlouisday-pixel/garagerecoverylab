@@ -19,6 +19,9 @@ faq:
 author: GarageRecoveryLab Editors
 published: 2026-11-25
 updated: 2026-11-25
+hero:
+  pexelsId: 14678986
+  alt: "A steaming hot tub beside a barn in the snow"
 draft: false
 ---
 

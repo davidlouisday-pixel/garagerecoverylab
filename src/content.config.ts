@@ -39,6 +39,8 @@ const articles = defineCollection({
     published: z.coerce.date(),
     updated: z.coerce.date(),
     draft: z.boolean().default(true),
+    // Header photo from Pexels (free commercial license). Mood shots only, never shown as a specific product.
+    hero: z.object({ pexelsId: z.number(), alt: z.string() }).optional(),
   }),
 });
 

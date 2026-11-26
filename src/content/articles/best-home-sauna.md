@@ -24,6 +24,9 @@ faq:
 author: GarageRecoveryLab Editors
 published: 2026-11-25
 updated: 2026-11-25
+hero:
+  pexelsId: 38871126
+  alt: "A wooden barrel sauna in a snowy garden"
 draft: true
 ---
 

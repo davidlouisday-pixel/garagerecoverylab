@@ -19,6 +19,9 @@ faq:
 author: GarageRecoveryLab Editors
 published: 2026-11-25
 updated: 2026-11-25
+hero:
+  pexelsId: 36818202
+  alt: "A wooden sauna with an electric heater and stones"
 draft: false
 ---
 
