@@ -1,33 +1,18 @@
 ---
 const nav = [
   { href: '/saunas/', label: 'Saunas' },
-  { href: '/cold-plunges/', label: 'Cold Plunges' },
-  { href: '/hot-tubs/', label: 'Hot Tubs' },
-  { href: '/massage-chairs/', label: 'Massage Chairs' },
-  { href: '/garage-gym/', label: 'Garage Gym' },
+  { href: '/cold-plunges/', label: 'Cold plunges' },
+  { href: '/hot-tubs/', label: 'Hot tubs' },
+  { href: '/massage-chairs/', label: 'Massage chairs' },
+  { href: '/garage-gym/', label: 'Garage gym' },
 ];
+const path = Astro.url.pathname;
 ---
 <header class="site-header">
-  <div class="wrap bar">
-    <a class="logo" href="/" aria-label="GarageRecoveryLab home">
-      <span class="dot heat"></span><span class="dot cold"></span>
-      Garage<strong>Recovery</strong>Lab
-    </a>
-    <nav aria-label="Main">
-      {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+  <div class="container">
+    <a class="wordmark" href="/" aria-label="GarageRecoveryLab home">GarageRecoveryLab</a>
+    <nav class="main-nav" aria-label="Main">
+      {nav.map((n) => <a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>)}
     </nav>
   </div>
 </header>
-<style>
-  .site-header { border-bottom: 1px solid var(--line); background: var(--surface); position: sticky; top: 0; z-index: 10; }
-  .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; flex-wrap: wrap; }
-  .logo { display: flex; align-items: center; gap: 4px; font-weight: 600; color: var(--ink); text-decoration: none; font-size: 1.1rem; }
-  .logo strong { color: var(--ember); }
-  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-  .dot.heat { background: var(--ember); }
-  .dot.cold { background: var(--ice); margin-right: 6px; }
-  nav { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.95rem; }
-  nav a { color: var(--ink); text-decoration: none; }
-  nav a:hover { color: var(--ember); }
-  @media (max-width: 640px) { .site-header { position: static; } .bar { padding-top: 10px; padding-bottom: 10px; } nav { gap: 12px; font-size: 0.9rem; } }
-</style>

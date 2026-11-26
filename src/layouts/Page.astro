@@ -4,10 +4,20 @@ interface Props { title: string; description: string; updated?: string }
 const { title, description, updated } = Astro.props;
 ---
 <Base title={title} description={description}>
-  <article class="prose page">
+  <article class="container page">
     <h1>{title}</h1>
-    {updated && <p class="muted">Last updated {updated}</p>}
-    <slot />
+    {updated && <p class="label updated">Last updated {updated}</p>}
+    <div class="page-body"><slot /></div>
   </article>
 </Base>
-<style>.page { margin: 32px 0; }</style>
+<style>
+  .page { padding-top: var(--space-2xl); }
+  .page h1 { max-width: 18ch; }
+  .updated { margin-top: var(--space-md); }
+  .page-body { margin-top: var(--space-xl); max-width: 760px; border-top: var(--rule-heavy) solid var(--color-ink); padding-top: var(--space-lg); }
+  .page-body :global(h2) { font-size: var(--text-2xl); margin-top: var(--space-2xl); }
+  .page-body :global(h3) { font-size: var(--text-xl); margin-top: var(--space-xl); }
+  .page-body :global(p), .page-body :global(ul) { margin-top: var(--space-md); max-width: 65ch; }
+  .page-body :global(li + li) { margin-top: var(--space-xs); }
+  .page-body :global(strong) { color: var(--color-ink); font-weight: 600; }
+</style>

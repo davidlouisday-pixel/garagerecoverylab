@@ -1,53 +1,141 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
 import { categories } from '../data/categories';
+import { typeLabel } from '../data/labels';
 
 const latest = (await getCollection('articles', ({ data }) => !data.draft))
   .sort((a, b) => b.data.updated.valueOf() - a.data.updated.valueOf())
   .slice(0, 6);
+const sauna = categories.find((c) => c.key === 'sauna');
+// Figures from the best home sauna guide's wiring section.
+const wiring = [
+  { figure: '15A', label: 'Small infrared saunas run on a standard household outlet.' },
+  { figure: '20A', label: 'Larger infrared cabins need their own dedicated 120V circuit.' },
+  { figure: '240V', label: 'Traditional heaters are hardwired, which means an electrician.' },
+];
 ---
 <Base
   title="GarageRecoveryLab: Honest Reviews of Saunas, Cold Plunges and Hot Tubs"
   description="Independent reviews and buying guides for home saunas, cold plunges, hot tubs, massage chairs and garage gym gear, with real running costs."
+  image={sauna?.hero ? `https://images.pexels.com/photos/${sauna.hero.pexelsId}/pexels-photo-${sauna.hero.pexelsId}.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop` : undefined}
 >
-  <section class="hero">
-    <p class="eyebrow">Heat. Cold. Recovery.</p>
-    <h1>Buy the right sauna, plunge or hot tub the first time.</h1>
-    <p class="lead">These are $3,000 to $15,000 purchases. We compare them on what the spec sheets leave out: heat-up time, running cost per session, install and wiring needs, and the warranty fine print.</p>
-    <a class="btn" href="/how-we-test/">How we test</a>
-  </section>
-
-  <section>
-    <h2>Browse by category</h2>
-    <div class="grid">
-      {categories.map((c) => (
-        <a class="card link" href={`/${c.slug}/`}>
-          <strong>{c.title}</strong>
-          <span class="muted">{c.blurb}</span>
-        </a>
-      ))}
+  <section class="container poster">
+    <div class="poster-text">
+      <h1>Buy the right sauna, plunge or hot tub the first time.</h1>
+      <p class="standfirst">These are $3,000 to $15,000 purchases. We compare what the spec sheets leave out.</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="/best-home-sauna/">Best home saunas of 2026</a>
+        <a class="btn btn--secondary" href="/how-we-test/">How we test</a>
+      </div>
     </div>
+    {sauna?.hero && <Hero pexelsId={sauna.hero.pexelsId} alt={sauna.hero.alt} shape="tall" class="poster-photo" />}
   </section>
 
   {latest.length > 0 && (
-    <section>
-      <h2>Latest guides</h2>
-      <div class="grid">
+    <section class="container block" aria-labelledby="latest">
+      <h2 id="latest" class="block-head">Latest guides</h2>
+      <ol class="rows">
         {latest.map((a) => (
-          <a class="card link" href={`/${a.id}/`}>
-            <span class="eyebrow">{a.data.type}</span>
-            <strong>{a.data.title}</strong>
-          </a>
+          <li>
+            <a href={`/${a.id}/`}>
+              <h3>{a.data.title}</h3>
+              <p>{a.data.description}</p>
+              <span class="label">{typeLabel[a.data.type] ?? a.data.type}</span>
+            </a>
+          </li>
         ))}
-      </div>
+      </ol>
     </section>
   )}
+
+  <section class="band" aria-labelledby="wiring">
+    <div class="container">
+      <div class="band-head">
+        <h2 id="wiring">Wiring decides more than price.</h2>
+        <p>Check which circuit a sauna needs before you order, and get an electrician's quote if it is not the one you have.</p>
+      </div>
+      <dl class="figures">
+        {wiring.map((w) => (
+          <div>
+            <dt>{w.figure}</dt>
+            <dd>{w.label}</dd>
+          </div>
+        ))}
+      </dl>
+      <a class="band-link" href="/infrared-vs-traditional-sauna/">Infrared vs traditional: wiring, heat and running cost</a>
+    </div>
+  </section>
+
+  <section class="container block" aria-labelledby="browse">
+    <h2 id="browse" class="block-head">Browse by category</h2>
+    <ul class="cats">
+      {categories.map((c) => (
+        <li>
+          <a href={`/${c.slug}/`}>
+            <h3>{c.title}</h3>
+            <p>{c.blurb}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="container block" aria-labelledby="who">
+    <div class="who opens">
+      <h2 id="who" class="who-head">Who writes this</h2>
+      <div>
+        <p class="standfirst who-text">Cole Garrison trains seven days a week and sits in his gym's 180 to 190°F sauna after training, four or more times a week. What he writes from his own use is labeled. Everything else is research, and says so.</p>
+        <p class="who-links"><a href="/about/">About Cole and the site</a> <a href="/affiliate-disclosure/">How we make money</a></p>
+      </div>
+    </div>
+  </section>
 </Base>
 <style>
-  .hero { padding: 56px 0 24px; max-width: 760px; }
-  .hero h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); }
-  .lead { font-size: 1.15rem; color: var(--muted); margin-bottom: 24px; }
-  .link { display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: var(--ink); }
-  .link:hover { border-color: var(--ember); }
+  .poster { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--gap-columns); align-items: end; padding-block: var(--space-2xl) var(--space-xl); }
+  .poster h1 { font-size: clamp(3rem, 6.2vw + 0.5rem, 6.5rem); max-width: 13ch; }
+  .poster .standfirst { margin-top: var(--space-lg); font-size: clamp(1.25rem, 0.8vw + 1rem, 1.75rem); max-width: 34ch; }
+  .poster .actions { margin-top: var(--space-xl); }
+  :global(.poster-photo) img { max-height: 620px; }
+  @media (max-width: 52rem) {
+    .poster { grid-template-columns: minmax(0, 1fr); padding-top: var(--space-xl); }
+    :global(.poster-photo) img { aspect-ratio: 4 / 3; max-height: none; }
+  }
+
+  .block { margin-top: var(--section-gap-s); }
+  .block-head { font-size: var(--text-section); margin-bottom: var(--space-lg); }
+
+  .band { margin-top: var(--section-gap-s); background: var(--color-ink); color: var(--color-paper); padding-block: var(--space-3xl); }
+  .band h2 { color: var(--color-paper); font-size: var(--text-section); }
+  .band-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--gap-columns); align-items: end; }
+  .band-head p { color: var(--color-paper-3); max-width: 40ch; }
+  .figures { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: var(--space-2xl) 0 0; border-top: var(--rule-hair) solid color-mix(in oklab, var(--color-paper) 35%, transparent); }
+  .figures > div { padding: var(--space-lg) var(--space-lg) 0 0; }
+  .figures > div + div { border-left: var(--rule-hair) solid color-mix(in oklab, var(--color-paper) 35%, transparent); padding-left: var(--space-lg); }
+  .figures dt { font-family: var(--font-display); font-weight: var(--display-weight); font-variation-settings: "wdth" 75, "opsz" 96; font-size: clamp(4rem, 9vw, 9rem); line-height: 0.9; letter-spacing: var(--tracking-display); font-variant-numeric: lining-nums tabular-nums; color: var(--color-paper); }
+  .figures dd { margin: var(--space-sm) 0 0; color: var(--color-paper-3); max-width: 28ch; }
+  .band-link { display: inline-block; margin-top: var(--space-2xl); color: var(--color-paper); font-family: var(--font-display); font-weight: 500; font-variation-settings: "opsz" 12; text-decoration-color: color-mix(in oklab, var(--color-paper) 50%, transparent); }
+  .band-link:hover { color: var(--color-paper); text-decoration-color: var(--color-paper); }
+  .band :focus-visible { outline-color: var(--color-paper); }
+  @media (max-width: 52rem) {
+    .band-head { grid-template-columns: minmax(0, 1fr); }
+    .figures { grid-template-columns: minmax(0, 1fr); }
+    .figures > div + div { border-left: 0; padding-left: 0; border-top: var(--rule-hair) solid color-mix(in oklab, var(--color-paper) 35%, transparent); margin-top: var(--space-lg); }
+  }
+
+  .cats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xl) var(--gap-columns); }
+  .cats a { display: block; height: 100%; border-top: var(--rule-heavy) solid var(--color-ink); padding-top: var(--space-md); text-decoration: none; color: inherit; }
+  .cats h3 { font-size: var(--text-2xl); }
+  .cats a:hover h3 { text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--color-accent); text-underline-offset: 0.12em; }
+  .cats p { margin-top: var(--space-xs); font-size: 1rem; }
+  @media (max-width: 60rem) { .cats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 40rem) { .cats { grid-template-columns: minmax(0, 1fr); } }
+
+  .who { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--gap-columns); }
+  .who-head { font-size: var(--text-2xl); }
+  .who-text { font-size: clamp(1.5rem, 1.4vw + 1rem, 2.25rem); line-height: 1.25; max-width: 36ch; }
+  .who-links { display: flex; flex-wrap: wrap; gap: var(--space-lg); margin-top: var(--space-lg); font-family: var(--font-display); font-weight: 500; font-variation-settings: "opsz" 12; }
+  .who-links a { color: var(--color-ink); }
+  @media (max-width: 52rem) { .who { grid-template-columns: minmax(0, 1fr); } }
 </style>

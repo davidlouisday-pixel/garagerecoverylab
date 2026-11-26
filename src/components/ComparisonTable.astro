@@ -15,7 +15,7 @@ const fmt = (n: number | null) => (n == null ? 'See price' : `$${n.toLocaleStrin
       <thead>
         <tr>
           <th>Product</th>
-          <th>Price (USD)</th>
+          <th>Price</th>
           {specKeys.map((k) => <th>{k}</th>)}
           <th></th>
         </tr>
@@ -23,10 +23,10 @@ const fmt = (n: number | null) => (n == null ? 'See price' : `$${n.toLocaleStrin
       <tbody>
         {items.map((p) => (
           <tr>
-            <td><strong>{p.data.name}</strong><br /><span class="muted">{p.data.brand}</span></td>
+            <td class="name"><span class="product">{p.data.name}</span><span class="label">{p.data.brand}</span></td>
             <td>
-              {fmt(p.data.priceUsd)}
-              {p.data.checked && <span class="muted small"><br />checked {p.data.checked}</span>}
+              <span class="price">{fmt(p.data.priceUsd)}</span>
+              {p.data.checked && <span class="label">on {new Date(p.data.checked).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</span>}
             </td>
             {specKeys.map((k) => <td>{p.data.specs[k] ?? '–'}</td>)}
             <td><BuyButton url={p.data.url} affiliate={p.data.affiliate} /></td>
@@ -36,4 +36,18 @@ const fmt = (n: number | null) => (n == null ? 'See price' : `$${n.toLocaleStrin
     </table>
   </div>
 )}
-<style>.small { font-size: 0.8rem; }</style>
+<style>
+  .table-scroll { margin-block: var(--space-xl); }
+  table { min-width: 680px; }
+  th, td { padding-right: var(--space-sm); }
+  td { font-size: 0.9375rem; line-height: 1.4; }
+  td:last-child { padding-right: 0; }
+  .name { min-width: 170px; }
+  .product, .price { display: block; font-family: var(--font-display); font-weight: 700; font-variation-settings: "wdth" 75, "opsz" 36; color: var(--color-ink); line-height: 1.15; }
+  .product { font-size: var(--text-lg); }
+  .price { font-size: var(--text-xl); }
+  td .label { display: block; margin-top: var(--space-2xs); }
+</style>
+<style>
+  td .btn { padding-inline: var(--space-md); }
+</style>
