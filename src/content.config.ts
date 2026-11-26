@@ -18,6 +18,8 @@ const products = defineCollection({
     specs: z.record(z.string(), z.string()).default({}),
     pros: z.array(z.string()).default([]),
     cons: z.array(z.string()).default([]),
+    // Only licensed images: affiliate network creatives, a brand media kit, or our own photos.
+    image: z.object({ src: z.string(), alt: z.string(), credit: z.string() }).nullable().default(null),
   }),
 });
 
@@ -33,10 +35,12 @@ const articles = defineCollection({
     quickAnswer: z.string(),
     products: z.array(reference('products')).default([]),
     faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
-    author: z.string().default('GarageRecoveryLab Editors'),
+    author: z.string().default('Cole Garrison'),
     published: z.coerce.date(),
     updated: z.coerce.date(),
     draft: z.boolean().default(true),
+    // Header photo from Pexels (free commercial license). Mood shots only, never shown as a specific product.
+    hero: z.object({ pexelsId: z.number(), alt: z.string() }).optional(),
   }),
 });
 

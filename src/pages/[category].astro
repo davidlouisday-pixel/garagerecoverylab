@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import { categories } from '../data/categories';
+import Hero, { pexelsSrc } from '../components/Hero.astro';
 
 export async function getStaticPaths() {
   return categories.map((c) => ({ params: { category: c.slug }, props: { cat: c } }));
@@ -10,11 +11,12 @@ const { cat } = Astro.props;
 const articles = (await getCollection('articles', ({ data }) => !data.draft && data.category === cat.key))
   .sort((a, b) => b.data.updated.valueOf() - a.data.updated.valueOf());
 ---
-<Base title={`${cat.title}: Reviews and Buying Guides`} description={cat.blurb}>
+<Base title={`${cat.title}: Reviews and Buying Guides`} description={cat.blurb} image={cat.hero && pexelsSrc(cat.hero.pexelsId)}>
   <section class="hub">
     <p class="eyebrow">Category</p>
     <h1>{cat.title}</h1>
     <p class="prose lead">{cat.blurb}</p>
+    {cat.hero && <Hero pexelsId={cat.hero.pexelsId} alt={cat.hero.alt} />}
     {articles.length === 0 ? (
       <p class="muted">Our first {cat.title.toLowerCase()} guides are in progress.</p>
     ) : (

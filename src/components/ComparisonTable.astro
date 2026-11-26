@@ -3,8 +3,10 @@ import { getEntries } from 'astro:content';
 import BuyButton from './BuyButton.astro';
 
 interface Props { products: { collection: 'products'; id: string }[]; specKeys?: string[] }
-const { products, specKeys = [] } = Astro.props;
+const { products, specKeys: given } = Astro.props;
 const items = await getEntries(products);
+// Default to every spec key the products share, in first-seen order.
+const specKeys = given ?? [...new Set(items.flatMap((p) => Object.keys(p.data.specs)))];
 const fmt = (n: number | null) => (n == null ? 'See price' : `$${n.toLocaleString('en-US')}`);
 ---
 {items.length > 0 && (

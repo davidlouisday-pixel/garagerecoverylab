@@ -1,9 +1,14 @@
 ---
 interface Props { author: string }
 const { author } = Astro.props;
+const isCole = author === 'Cole Garrison';
 ---
 <aside class="author card">
   <p class="eyebrow">About the author</p>
-  <p><strong>{author}</strong>. Read <a href="/how-we-test/">how we test and research</a> and <a href="/about/">who runs this site</a>.</p>
+  {isCole ? (
+    <p><strong>Cole Garrison</strong> trains seven days a week and uses the electric sauna at his gym four or more times a week after training. He spent years training in a home gym before moving to a commercial gym. <a href="/about/">More about Cole</a> and <a href="/how-we-test/">how we research</a>.</p>
+  ) : (
+    <p><strong>{author}</strong>. Read <a href="/how-we-test/">how we test and research</a> and <a href="/about/">who runs this site</a>.</p>
+  )}
 </aside>
 <style>.author { margin-top: 40px; } .author p { margin: 4px 0; }</style>

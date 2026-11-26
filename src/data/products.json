@@ -4,25 +4,189 @@
     "name": "Equinox 2-Person Full-Spectrum Infrared Sauna",
     "brand": "Sun Home Saunas",
     "category": "sauna",
-    "url": "https://sunhomesaunas.com/",
+    "url": "https://sunhomesaunas.com/collections/indoor-saunas/products/sun-home-equinox-2-person-full-spectrum-infrared-sauna",
     "affiliate": false,
-    "priceUsd": null,
-    "checked": null,
-    "specs": {},
-    "pros": [],
-    "cons": []
+    "priceUsd": 6099,
+    "checked": "2026-11-25",
+    "specs": {
+      "Type": "Full-spectrum infrared",
+      "Electrical": "120V, dedicated 20A GFCI",
+      "Max temp": "165°F",
+      "Warranty": "7 years"
+    },
+    "pros": [
+      "Plugs into a dedicated 120V circuit, no 240V electrician job",
+      "Published EMF figure (0.3 to 0.9 mG at 3 ft)",
+      "Hottest infrared cabin in this list at 165°F"
+    ],
+    "cons": [
+      "Needs its own 20A circuit with a NEMA 5-20 outlet",
+      "541 lb, so plan the delivery path",
+      "Price checked during a Black Friday sale; list price is $6,799"
+    ],
+    "image": null
+  },
+  {
+    "id": "clearlight-sanctuary-2",
+    "name": "Sanctuary 2 Full-Spectrum Infrared Sauna",
+    "brand": "Clearlight",
+    "category": "sauna",
+    "url": "https://infraredsauna.com/product/sanctuary-two-person/",
+    "affiliate": false,
+    "priceUsd": 7299,
+    "checked": "2026-11-25",
+    "specs": {
+      "Type": "Full-spectrum infrared",
+      "Electrical": "See spec sheet",
+      "Max temp": "See spec sheet",
+      "Warranty": "Limited lifetime"
+    },
+    "pros": [
+      "Limited lifetime warranty, the longest in this list",
+      "Under-floor foot heater and app control included",
+      "Choice of basswood or mahogany"
+    ],
+    "cons": [
+      "Most expensive two-person pick here",
+      "Price shown is basswood on Black Friday sale; mahogany is $7,699",
+      "Red light therapy is a $1,399 add-on"
+    ],
+    "image": null
+  },
+  {
+    "id": "dynamic-barcelona",
+    "name": "Barcelona 1-2 Person Low EMF Far Infrared Sauna (DYN-6106-01)",
+    "brand": "Dynamic Saunas",
+    "category": "sauna",
+    "url": "https://skywardmedical.com/products/dynamic-barcelona-2-person-low-emf-far-infrared-indoor-sauna-dyn-6106-01",
+    "affiliate": false,
+    "priceUsd": 1899,
+    "checked": "2026-11-25",
+    "specs": {
+      "Type": "Far infrared (carbon)",
+      "Electrical": "120V, 15A outlet (dedicated recommended)",
+      "Max temp": "140°F",
+      "Warranty": "See manufacturer"
+    },
+    "pros": [
+      "About a third of the price of the premium picks",
+      "Runs on a standard 15A household outlet",
+      "Two adults can assemble it in about an hour"
+    ],
+    "cons": [
+      "Tight for two adults (36 in wide inside)",
+      "Far infrared only, max 140°F",
+      "EMF quoted at 6 to 10 mG near the panels, higher than premium brands"
+    ],
+    "image": null
+  },
+  {
+    "id": "almost-heaven-watoga",
+    "name": "Watoga 4-Person Barrel Sauna (6 ft x 5 ft)",
+    "brand": "Almost Heaven Saunas",
+    "category": "sauna",
+    "url": "https://www.saunaplace.com/products/almost-heaven-6-x-5-watoga-4-person-barrel-sauna",
+    "affiliate": false,
+    "priceUsd": 4665,
+    "checked": "2026-11-25",
+    "specs": {
+      "Type": "Traditional (Harvia 6 kW electric)",
+      "Electrical": "240V, 30A hardwired",
+      "Max temp": "180°F",
+      "Warranty": "Lifetime on room; heater 1 yr elements, 5 yr parts"
+    },
+    "pros": [
+      "Real traditional heat with steam from the stones",
+      "Seats up to four",
+      "Rated for indoor or outdoor use"
+    ],
+    "cons": [
+      "Needs an electrician for a 240V, 30A circuit",
+      "Retailer adds $699 shipping; ships in about 4 to 5 weeks",
+      "DIY assembly of a barrel kit takes a weekend, not an hour",
+      "Barrel owners often add a roof or cover to stop rain leaks"
+    ],
+    "image": null
   },
   {
     "id": "canuck-cold-tub-chiller",
-    "name": "Acrylic Cold Plunge Tub + Chiller",
+    "name": "Cold Tub + Chiller Bundle",
     "brand": "Canuck Cold",
     "category": "cold-plunge",
     "url": "https://www.canuckcold.com/",
     "affiliate": false,
     "priceUsd": 5999,
     "checked": "2026-11-24",
-    "specs": {},
-    "pros": [],
-    "cons": []
+    "specs": {
+      "Cooling": "Separate chiller",
+      "Temp range": "37 to 104°F",
+      "Sanitation": "Filter + automatic ozone",
+      "Warranty": "1 year"
+    },
+    "pros": [
+      "Chills and heats, so it doubles as a hot soak",
+      "Chillers are cETLus, cTUVus or CE certified",
+      "Modular: tubs and chillers sold separately or bundled"
+    ],
+    "cons": [
+      "Only a 1-year warranty",
+      "Separate chiller takes extra floor space",
+      "Exact bundle price varies by tub; confirm before buying"
+    ],
+    "image": null
+  },
+  {
+    "id": "plunge-all-in",
+    "name": "All-In Gen 2",
+    "brand": "Plunge",
+    "category": "cold-plunge",
+    "url": "https://plunge.com/products/plunge-all-in",
+    "affiliate": false,
+    "priceUsd": 6990,
+    "checked": "2026-11-25",
+    "specs": {
+      "Cooling": "Integrated chiller",
+      "Temp range": "37°F (104°F with $500 heater)",
+      "Sanitation": "Ozone + dual filtration",
+      "Warranty": "1 year"
+    },
+    "pros": [
+      "Chiller built into the tub, one clean footprint",
+      "App control and maintenance reminders",
+      "Full-length reclined position"
+    ],
+    "cons": [
+      "Price checked on a Black Friday sale; list is $9,990",
+      "Heating is a $500 add-on",
+      "Long footprint at about 77 x 32 in"
+    ],
+    "image": null
+  },
+  {
+    "id": "ice-barrel-300",
+    "name": "Ice Barrel 300",
+    "brand": "Ice Barrel",
+    "category": "cold-plunge",
+    "url": "https://icebarrel.com/",
+    "affiliate": false,
+    "priceUsd": 1449,
+    "checked": "2026-11-25",
+    "specs": {
+      "Cooling": "Ice (chiller $4,299 extra)",
+      "Temp range": "Depends on ice",
+      "Sanitation": "Manual",
+      "Warranty": "Limited lifetime"
+    },
+    "pros": [
+      "Cheapest real tub here, made in the USA",
+      "R16 insulation holds cold longer than inflatables",
+      "Small upright footprint"
+    ],
+    "cons": [
+      "No chiller, so you buy and haul ice",
+      "Upright position, not full-body reclined",
+      "About 700 lb when filled"
+    ],
+    "image": null
   }
 ]

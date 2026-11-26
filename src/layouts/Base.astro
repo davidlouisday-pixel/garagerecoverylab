@@ -8,8 +8,9 @@ interface Props {
   description: string;
   jsonLd?: Record<string, unknown>[];
   noindex?: boolean;
+  image?: string;
 }
-const { title, description, jsonLd = [], noindex = false } = Astro.props;
+const { title, description, jsonLd = [], noindex = false, image } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const fullTitle = title.includes('GarageRecoveryLab') ? title : `${title} | GarageRecoveryLab`;
 const org = {
@@ -32,6 +33,7 @@ const org = {
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    {image && <meta property="og:image" content={image} />}
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
