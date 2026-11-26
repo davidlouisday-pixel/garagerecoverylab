@@ -25,7 +25,7 @@ hero:
 draft: false
 ---
 
-This guide is based on published research and medical guidance. Cole uses an electric sauna four or more times a week, but the numbers below come from the sources listed at the end.
+This guide is based on published research and medical guidance. Cole uses the sauna at his gym four or more times a week, usually about 20 minutes at 180 to 190°F after training. The guidance below comes from the sources listed at the end.
 
 ## Quick guide
 
@@ -66,7 +66,7 @@ After adjusting for other risk factors, men who used a sauna 4 to 7 times a week
 1. **Hydrate before and after.** Harvard Health notes that a short sauna session can cost about a pint of sweat.
 2. **Skip alcohol** before and during a session.
 3. **Ask a doctor first** if you have had a recent heart attack or stroke, have heart failure, severe aortic stenosis, or high or low blood pressure, or are pregnant or trying to get pregnant.
-4. **Train first, sauna second.** If you combine it with a workout, go afterward.
+4. **Train first, sauna second.** If you combine it with a workout, go afterward. See [sauna before or after a workout](/sauna-before-or-after-workout/).
 
 ## Sources
 

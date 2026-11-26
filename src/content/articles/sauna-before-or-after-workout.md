@@ -1,5 +1,5 @@
 ---
-# DRAFT until the "Cole's routine" section is filled from David's answers.
+# Cole's routine section is from the owner's own words (2026-11-26).
 title: "Sauna Before or After a Workout? What the Research Says"
 description: "Use the sauna after your workout, not before. Here is why, how long to stay in, and what studies found when people added sauna to training."
 type: guide
@@ -23,7 +23,7 @@ updated: 2026-11-26
 hero:
   pexelsId: 15857058
   alt: "Wooden benches and a stove inside a sauna"
-draft: true
+draft: false
 ---
 
 ## The short answer
@@ -39,7 +39,9 @@ Go **after** you train. Every study below put the sauna after exercise, and doin
 
 ## Cole's routine
 
-[DAVID: 3 to 4 sentences. When you go in relative to training (right after, later that day, rest days too?), your usual temperature and time, and what you notice afterward, for example sleep, stiffness or how you feel the next morning.]
+Cole trains seven days a week and uses the sauna after training, four or more times a week. It is the electric sauna at his gym: a large room with a rock heater, usually somewhere between 180 and 190°F. He stays about 20 minutes.
+
+In his words, he comes out feeling "euphoric, relaxed, positive" and "clear minded," looser and less stiff, with easier sleep and recovery. That is one person's experience, not a study result, so the research below is what to weigh.
 
 ## What the research found
 

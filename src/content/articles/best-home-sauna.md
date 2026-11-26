@@ -30,7 +30,7 @@ hero:
 draft: true
 ---
 
-DAVID INPUT NEEDED before publishing: answers to the sauna questions in the thread fill the "From Cole's own sauna" section below. Then delete this line.
+TODO before publishing: add an owner-review summary per pick (ratings and review counts from at least 3 sources: brand site, a major retailer, and Reddit or forum threads), then delete this line.
 
 ## Our picks at a glance
 
@@ -41,7 +41,7 @@ DAVID INPUT NEEDED before publishing: answers to the sauna questions in the thre
 
 ## How we chose
 
-Cole uses an electric sauna four or more times a week, and that routine shapes what we weigh most. None of these four models is his own sauna, so the product details are research: we compared manufacturer spec sheets and product pages, checked prices on November 25, 2026, and ranked on four things buyers regret getting wrong: the electrical work, real heat, warranty length and total cost. See [how we test](/how-we-test/) for our full criteria.
+Cole uses the traditional electric sauna at his gym four or more times a week, and that shapes what we weigh most. None of these four models is his own sauna, so the product details are research, and we lean on what owners report across several review sources, which is how Cole shops for big purchases himself: we compared manufacturer spec sheets and product pages, checked prices on November 25, 2026, and ranked on four things buyers regret getting wrong: the electrical work, real heat, warranty length and total cost. See [how we test](/how-we-test/) for our full criteria.
 
 We left out saunas that do not publish their electrical requirements, because "plug and play" claims are where most install surprises come from.
 
@@ -87,9 +87,12 @@ Budget for the install. The heater needs a **240V, 30A hardwired circuit**, whic
 
 **Skip it if:** you cannot add a 240V circuit, or you want to use it on short notice. Traditional saunas preheat for 30 to 45 minutes.
 
-## From Cole's own sauna
+## What Cole's gym sauna taught him to look for
 
-[DAVID: 3 to 5 sentences in your words. Which type it is (heater with rocks or infrared panels), what temperature and how long you usually run it, whether you go before or after training, and what you'd check before buying again, like wiring, heat-up time or bench height.]
+Cole's gym sauna is a large room with a rock heater that runs between 180 and 190°F, and he stays about 20 minutes after training. Two lessons from that for home buyers:
+
+- **If you want that heat, buy traditional.** None of the infrared saunas here gets close: the hottest, the Sun Home Equinox, tops out at 165°F. Only a traditional heater like the Watoga's reaches 180°F.
+- **Plan around a 20-minute session.** That is what Cole does and what most medical guidance suggests, so reliable heat-up matters more than extra bench space for long sessions.
 
 ## What to know before you buy
 
