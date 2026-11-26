@@ -47,7 +47,7 @@ Longer is not automatically better. Get out if you feel dizzy, nauseous, or get 
 
 ## How hot: it depends on the type
 
-**Traditional saunas** heat the air, typically to **150 to 195°F**, with low humidity unless you pour water on the stones. **Infrared saunas** warm your body directly, so the air only needs to reach about **110 to 150°F**. If you are comparing the two, our [infrared vs traditional sauna](/infrared-vs-traditional-sauna/) guide covers heat-up time, wiring and running cost.
+**Traditional saunas** heat the air, typically to **150 to 195°F**, with low humidity unless you pour water on the stones. **Infrared saunas** warm your body directly, so the air only needs to reach about **110 to 150°F**. If you are comparing the two, our [infrared vs traditional sauna](/infrared-vs-traditional-sauna/) guide covers heat-up time, wiring and running cost. For what temperatures the Finnish studies actually used, see [how hot should a sauna be](/how-hot-should-a-sauna-be/).
 
 ## How often: the case for several times a week
 
