@@ -120,10 +120,13 @@ For our current picks, see [best home saunas](/best-home-sauna/).
 
 ## Sources
 
+Model prices and specs come from manufacturer and retailer listings checked on November 27, 2026. We name them here but do not link to them until we can recommend specific products.
+
+
 - [HomeGuide: How much does a sauna cost?](https://www.homeguide.com/costs/sauna-cost) (installed costs by type, heater, electrical, labor and running costs)
 - [Angi: How much does a home sauna cost?](https://angi.com/articles/home-sauna-cost.htm) (costs by type and size, electrical, labor share, ventilation)
 - [Fixr: Sauna installation cost](https://www.fixr.com/costs/sauna-installation) (national average, 220V circuit, monthly running cost)
-- [Almost Heaven: Outdoor saunas](https://almostheaven.com/collections/outdoor) (Salem and Watoga list prices)
-- [SaunaPlace: Almost Heaven Watoga 4-person barrel sauna](https://www.saunaplace.com/products/almost-heaven-6-x-5-watoga-4-person-barrel-sauna) (heater, electrical, sale price, shipping)
-- [Recovery for Athletes: Dundalk Canadian Timber Serenity](https://www.recoveryforathletes.com/products/dundalk-leisurecraft-canadian-timber-3-4-person-serenity-outdoor-traditional-barrel-sauna) and [Tranquility](https://www.recoveryforathletes.com/products/dundalk-leisurecraft-canadian-timber-4-5-person-ct-tranquility-outdoor-traditional-barrel-sauna)
-- [SaunaPlace: SaunaLife Model G4 outdoor home sauna kit](https://saunaplace.com/products/saunalife-model-g4-outdoor-home-sauna-kit)
+- Almost Heaven: Outdoor saunas (Salem and Watoga list prices)
+- SaunaPlace: Almost Heaven Watoga 4-person barrel sauna (heater, electrical, sale price, shipping)
+- Recovery for Athletes: Dundalk Canadian Timber Serenity and Tranquility
+- SaunaPlace: SaunaLife Model G4 outdoor home sauna kit

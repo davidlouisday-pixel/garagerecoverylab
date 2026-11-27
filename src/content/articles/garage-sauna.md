@@ -102,11 +102,14 @@ A garage often already holds a home gym, and a sauna right after training is an 
 
 ## Sources
 
+Model prices and specs come from manufacturer and retailer listings checked on November 27, 2026. We name them here but do not link to them until we can recommend specific products.
+
+
 - [Harvia: How do I select the correct heater power](https://support.harvia.com/hc/en-gb/articles/22158995674524-How-do-I-select-the-correct-heater-power) (1 kW per cubic meter, 1.2 m³ per m² of cold surface)
 - [HUUM: How to dimension a sauna heater](https://huum.eu/how-to-dimension-a-sauna-heater-find-the-proper-power-for-your-sauna/) (sizing rule, insulation, vapor barrier, ceiling height)
 - [HomeGuide: How much does a sauna cost?](https://www.homeguide.com/costs/sauna-cost) (installed costs, circuit cost, running cost)
 - [Angi: How much does a home sauna cost?](https://angi.com/articles/home-sauna-cost.htm) (assembly costs)
 - [Fixr: Sauna installation cost](https://www.fixr.com/costs/sauna-installation) (220V circuit cost)
-- [SaunaPlace: Almost Heaven Watoga](https://www.saunaplace.com/products/almost-heaven-6-x-5-watoga-4-person-barrel-sauna) (heater electrical spec)
-- [Recovery for Athletes: Dundalk Canadian Timber Serenity](https://www.recoveryforathletes.com/products/dundalk-leisurecraft-canadian-timber-3-4-person-serenity-outdoor-traditional-barrel-sauna) (heater not on a GFI breaker)
+- SaunaPlace: Almost Heaven Watoga (heater electrical spec)
+- Recovery for Athletes: Dundalk Canadian Timber Serenity (heater not on a GFI breaker)
 - [Cleveland Clinic: Sauna benefits](https://health.clevelandclinic.org/sauna-benefits) (infrared and traditional temperature ranges)

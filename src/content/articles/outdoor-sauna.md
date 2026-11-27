@@ -91,11 +91,14 @@ Most outdoor saunas use traditional heaters, which run in the 150 to 195°F rang
 
 ## Sources
 
-- [Almost Heaven: Outdoor saunas](https://almostheaven.com/collections/outdoor) (Salem, Watoga, Shenandoah list prices)
-- [SaunaPlace: Almost Heaven Watoga](https://www.saunaplace.com/products/almost-heaven-6-x-5-watoga-4-person-barrel-sauna) (heater, electrical, dimensions, shipping)
-- [SaunaPlace: Almost Heaven Shenandoah](https://www.saunaplace.com/products/almost-heaven-7-x-10-shenandoah-8-person-barrel-sauna) (heater, electrical, dimensions, shipping)
-- [Recovery for Athletes: Dundalk Canadian Timber Serenity](https://www.recoveryforathletes.com/products/dundalk-leisurecraft-canadian-timber-3-4-person-serenity-outdoor-traditional-barrel-sauna) and [Tranquility](https://www.recoveryforathletes.com/products/dundalk-leisurecraft-canadian-timber-4-5-person-ct-tranquility-outdoor-traditional-barrel-sauna)
-- [SaunaPlace: SaunaLife Model G4](https://saunaplace.com/products/saunalife-model-g4-outdoor-home-sauna-kit)
+Model prices and specs come from manufacturer and retailer listings checked on November 27, 2026. We name them here but do not link to them until we can recommend specific products.
+
+
+- Almost Heaven: Outdoor saunas (Salem, Watoga, Shenandoah list prices)
+- SaunaPlace: Almost Heaven Watoga (heater, electrical, dimensions, shipping)
+- SaunaPlace: Almost Heaven Shenandoah (heater, electrical, dimensions, shipping)
+- Recovery for Athletes: Dundalk Canadian Timber Serenity and Tranquility
+- SaunaPlace: SaunaLife Model G4
 - [HomeGuide: How much does a sauna cost?](https://www.homeguide.com/costs/sauna-cost) (installed costs, heater and circuit costs)
 - [Fixr: Sauna installation cost](https://www.fixr.com/costs/sauna-installation) (permits for outdoor saunas)
 - [Cleveland Clinic: Sauna benefits](https://health.clevelandclinic.org/sauna-benefits) (traditional sauna temperature range)
