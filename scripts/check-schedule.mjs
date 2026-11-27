@@ -19,7 +19,7 @@ for (const f of readdirSync(DIR).filter((f) => f.endsWith('.md') && !f.startsWit
 
 const errors = [];
 for (const [slug, a] of Object.entries(arts)) {
-  for (const [, target] of a.body.matchAll(/\]\(\/([a-z0-9-]+)\/[^)]*\)/g)) {
+  for (const [, target] of a.body.matchAll(/(?<!!\[[^\]]*)\]\(\/([a-z0-9-]+)\/[^)]*\)/g)) {
     if (pages.has(target) || cats.includes(target)) continue;
     const t = arts[target];
     if (!t) errors.push(`${slug} links to /${target}/, which does not exist`);

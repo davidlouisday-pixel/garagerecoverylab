@@ -1,0 +1,106 @@
+---
+// Free calculator: minimum electric sauna heater power from room size and cold surfaces.
+// Rules from Harvia's support article (1 kW per m3; each m2 of glass, stone, tile, brick or concrete adds 1.2 m3)
+// and HUUM's dimensioning guide (same base rule, 1 m3 per m2 of glass or log wall). Checked 2026-11-27.
+import Base from '../layouts/Base.astro';
+
+const sizes = [3, 4.5, 6, 8, 9, 10.5, 12, 15];
+const faq = [
+  { q: 'What size heater do I need for my sauna?', a: 'Heater makers Harvia and HUUM both size heaters at about 1 kW per cubic meter of room, which is 1 kW per 35 cubic feet. Glass, stone, tile and other uninsulated surfaces need extra power. A 4 by 6 foot room with a 7 foot ceiling is 168 cubic feet, so it needs at least about 4.8 kW, which means a 6 kW heater.' },
+  { q: 'Does a glass door or wall need a bigger heater?', a: 'Yes. Glass loses heat much faster than an insulated wall. Harvia adds 1.2 cubic meters of room volume for every square meter of glass, stone, tile, brick or concrete. In feet, that is about 4 cubic feet per square foot of glass.' },
+  { q: 'Is a bigger sauna heater better?', a: 'Not always. A heater that is too small struggles to reach temperature, but one far too large heats the air so fast that the stones never fully heat, which makes for weaker steam. Harvia advises choosing a heater whose stated room range has your room near the middle, not at either end.' },
+  { q: 'How many amps does a sauna heater draw?', a: 'Divide the heater power in watts by the voltage. A 6 kW heater on 240 volts draws 25 amps, and a 9 kW heater draws 37.5 amps. The breaker and wire size come from the heater manual and your electrician, not from this number alone.' },
+];
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Sauna Heater Size Calculator', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' } },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+<Base title="Sauna Heater Size Calculator: What kW Heater Do You Need?" description="Enter your sauna's size and any glass or stone surfaces to get the minimum heater power, the common heater size to buy, and its current draw." jsonLd={jsonLd}>
+  <article class="container calc" data-temp="heat">
+    <p class="label crumbs"><a href="/saunas/">Saunas</a></p>
+    <h1>Sauna heater size calculator</h1>
+    <p class="standfirst">Enter your room size and any glass, stone or tile to see the heater power you need.</p>
+
+    <form class="calc-grid well well--heat" id="calc" onsubmit="return false">
+      <div class="fields">
+        <label>Length (feet)<input id="len" type="number" min="2" max="30" step="0.5" value="6" inputmode="decimal" /></label>
+        <label>Width (feet)<input id="wid" type="number" min="2" max="30" step="0.5" value="4" inputmode="decimal" /></label>
+        <label>Ceiling height (feet)<input id="hgt" type="number" min="5" max="12" step="0.5" value="7" inputmode="decimal" /></label>
+        <label>Glass, stone, tile or brick (square feet)<input id="cold" type="number" min="0" max="400" step="1" value="0" inputmode="numeric" /></label>
+        <label>Supply voltage
+          <select id="volt"><option value="240" selected>240 volts</option><option value="208">208 volts</option></select>
+        </label>
+      </div>
+      <output class="results" for="len wid hgt cold volt" aria-live="polite">
+        <div><span class="label">Minimum power</span><span class="big" id="r-min">4.8 kW</span></div>
+        <div><span class="label">Common size to look for</span><span class="big" id="r-size">6 kW</span></div>
+        <div><span class="label">Current draw</span><span class="big" id="r-amps">25 A</span></div>
+        <p class="label note" id="r-vol">168 cubic feet</p>
+      </output>
+    </form>
+
+    <div class="calc-body">
+      <h2>How we calculate it</h2>
+      <p>Both Harvia and HUUM, two of the largest sauna heater makers, start from the same rule: about <strong>1 kW of heater power per cubic meter</strong> of room, which is 1 kW per 35.3 cubic feet.</p>
+      <p>Uninsulated surfaces lose heat fast, so they count as extra volume. Harvia adds <strong>1.2 cubic meters for every square meter</strong> of glass, stone, tile, brick or concrete. That is about 3.9 cubic feet for every square foot. HUUM uses a slightly lower 1 cubic meter per square meter for glass or log walls. We use Harvia's figure, so the result leans slightly high.</p>
+      <p>The "common size" is the smallest typical heater rating at or above your minimum. Harvia advises picking a heater whose stated room range puts your room near the middle, so if you land right at the top of a size, go up one. Always check the room range printed in the heater's own manual before you buy.</p>
+      <p>You may see a retailer rule of 1 kW per 45 to 50 cubic feet. That gives a smaller heater than the manufacturers' own rule. We follow the manufacturers.</p>
+      <p>Current draw is power divided by voltage. Your electrician sizes the breaker and wire from the heater manual. A heater this size usually needs a dedicated 240 volt circuit, which our <a href="/infrared-vs-traditional-sauna/">infrared vs traditional sauna</a> guide explains. To see what the heater costs per session, use the <a href="/sauna-running-cost-calculator/">sauna running cost calculator</a>.</p>
+      <p>Sources: <a href="https://support.harvia.com/hc/en-gb/articles/22158995674524-How-do-I-select-the-correct-heater-power" rel="nofollow noopener">Harvia: How do I select the correct heater power</a>, and <a href="https://huum.eu/how-to-dimension-a-sauna-heater-find-the-proper-power-for-your-sauna/" rel="nofollow noopener">HUUM: How to dimension a sauna heater</a>.</p>
+
+      <section class="faq-mini" aria-labelledby="calc-faq">
+        <h2 id="calc-faq">Frequently asked questions</h2>
+        {faq.map((f) => (<><h3>{f.q}</h3><p>{f.a}</p></>))}
+      </section>
+    </div>
+  </article>
+</Base>
+<script is:inline define:vars={{ sizes }}>
+  (function () {
+    var $ = function (id) { return document.getElementById(id); };
+    var FT3_PER_M3 = 35.3147, FT2_PER_M2 = 10.7639;
+    function calc() {
+      var vol = (parseFloat($('len').value) || 0) * (parseFloat($('wid').value) || 0) * (parseFloat($('hgt').value) || 0);
+      var cold = parseFloat($('cold').value) || 0, volt = parseFloat($('volt').value) || 240;
+      var m3 = vol / FT3_PER_M3 + 1.2 * (cold / FT2_PER_M2);
+      var kw = Math.round(m3 * 10) / 10;
+      var pick = sizes.find(function (s) { return s >= kw; });
+      $('r-min').textContent = kw + ' kW';
+      $('r-size').textContent = pick ? pick + ' kW' : 'Over 15 kW';
+      $('r-amps').textContent = pick ? (Math.round(pick * 1000 / volt * 10) / 10) + ' A' : 'n/a';
+      $('r-vol').textContent = Math.round(vol) + ' cubic feet of room' + (cold ? ', plus ' + cold + ' sq ft of cold surfaces' : '');
+    }
+    ['len', 'wid', 'hgt', 'cold', 'volt'].forEach(function (id) { $(id).addEventListener('input', calc); });
+    calc();
+  })();
+</script>
+<style>
+  .calc { padding-top: var(--space-2xl); }
+  .crumbs { margin-bottom: var(--space-md); }
+  .crumbs a { color: var(--color-heat); font-weight: 700; }
+  .calc .standfirst { margin-top: var(--space-lg); }
+  .calc-grid { margin-top: var(--space-xl); display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-xl); max-width: 1100px; }
+  .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); }
+  .fields label:nth-child(4) { grid-column: 1 / -1; }
+  label { display: grid; gap: var(--space-2xs); font-size: var(--text-sm); color: var(--color-ink); }
+  input, select { min-height: 52px; padding: 0 var(--space-sm); border: 1px solid var(--color-rule-2); border-radius: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: 1.0625rem; }
+  input:hover, select:hover { border-color: var(--color-ink-2); }
+  input:focus-visible, select:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 0; border-color: var(--color-ink); }
+  .results { display: grid; gap: var(--space-md); align-content: start; border-left: 1px solid var(--color-rule-2); padding-left: var(--space-xl); }
+  .results div { display: grid; }
+  .big { font-family: var(--font-display); font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; font-size: clamp(2.5rem, 4vw, 4rem); line-height: 1; color: var(--color-ink); font-variant-numeric: lining-nums tabular-nums; }
+  .results div:first-child .big { color: var(--color-heat-deep); }
+  .calc-body { max-width: 760px; margin-top: var(--space-2xl); }
+  .calc-body h2 { font-size: var(--text-2xl); margin-top: var(--space-2xl); }
+  .calc-body p { margin-top: var(--space-md); }
+  .faq-mini h3 { font-size: var(--text-xl); margin-top: var(--space-lg); }
+  .faq-mini p { margin-top: var(--space-xs); }
+  @media (max-width: 52rem) {
+    .calc-grid { grid-template-columns: minmax(0, 1fr); }
+    .results { order: -1; border-left: 0; padding-left: 0; border-bottom: 1px solid var(--color-rule-2); padding-bottom: var(--space-lg); grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .results .note { grid-column: 1 / -1; }
+    .big { font-size: 2rem; }
+  }
+  @media (max-width: 30rem) { .fields { grid-template-columns: minmax(0, 1fr); } }
+</style>

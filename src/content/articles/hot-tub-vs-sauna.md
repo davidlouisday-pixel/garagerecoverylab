@@ -19,8 +19,8 @@ author: Cole Garrison
 published: 2026-12-08
 updated: 2026-12-08
 hero:
-  pexelsId: 14678986
-  alt: "A steaming hot tub beside a barn in the snow"
+  pexelsId: 9899894
+  alt: "An outdoor hot tub overlooking a lake in autumn"
 draft: false
 ---
 

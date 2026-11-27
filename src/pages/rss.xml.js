@@ -18,7 +18,10 @@ export async function GET(context) {
       description: a.data.description,
       link: `/${a.id}/`,
       pubDate: a.data.published,
-      ...(a.data.hero && { enclosure: { url: tall(a.data.hero.pexelsId), length: 0, type: 'image/jpeg' } }),
+      // Prefer our own pin graphic; fall back to the tall crop of the Pexels hero photo.
+      ...(a.data.pin
+        ? { enclosure: { url: new URL(a.data.pin, context.site).toString(), length: 0, type: 'image/png' } }
+        : a.data.hero && { enclosure: { url: tall(a.data.hero.pexelsId), length: 0, type: 'image/jpeg' } }),
     })),
   });
 }

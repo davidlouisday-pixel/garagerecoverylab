@@ -19,8 +19,8 @@ author: Cole Garrison
 published: 2026-12-11
 updated: 2026-12-11
 hero:
-  pexelsId: 36818202
-  alt: "A wooden sauna with an electric heater and stones"
+  pexelsId: 4719918
+  alt: "A man wiping his head after exercising outdoors"
 draft: false
 ---
 

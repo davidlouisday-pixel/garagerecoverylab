@@ -20,8 +20,8 @@ author: Cole Garrison
 published: 2026-12-15
 updated: 2026-12-15
 hero:
-  pexelsId: 14678986
-  alt: "A steaming hot tub beside a barn in the snow"
+  pexelsId: 9890743
+  alt: "An illuminated outdoor hot tub beside a lake at night"
 draft: false
 ---
 

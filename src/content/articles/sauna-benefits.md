@@ -22,8 +22,8 @@ author: Cole Garrison
 published: 2026-12-18
 updated: 2026-12-18
 hero:
-  pexelsId: 18285438
-  alt: "Water being poured over the hot stones of a sauna heater"
+  pexelsId: 31092926
+  alt: "A man relaxing in a warmly lit sauna on a snowy evening"
 draft: false
 ---
 

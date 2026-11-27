@@ -19,8 +19,8 @@ author: Cole Garrison
 published: 2026-11-28
 updated: 2026-11-28
 hero:
-  pexelsId: 32504776
-  alt: "A man sitting in a sauna"
+  pexelsId: 17227605
+  alt: "A cozy wooden sauna interior with empty benches"
 draft: false
 ---
 

@@ -20,8 +20,8 @@ author: Cole Garrison
 published: 2026-12-01
 updated: 2026-12-01
 hero:
-  pexelsId: 14815628
-  alt: "A man sitting in icy water beside a wooden dock in winter"
+  pexelsId: 15814247
+  alt: "Two men swimming in a partly frozen lake"
 draft: false
 ---
 

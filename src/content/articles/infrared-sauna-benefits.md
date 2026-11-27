@@ -19,8 +19,8 @@ author: Cole Garrison
 published: 2026-12-04
 updated: 2026-12-04
 hero:
-  pexelsId: 39912941
-  alt: "Warm light on the wooden walls and benches of a modern sauna"
+  pexelsId: 36077605
+  alt: "A modern indoor sauna with LED lighting"
 draft: false
 ---
 
