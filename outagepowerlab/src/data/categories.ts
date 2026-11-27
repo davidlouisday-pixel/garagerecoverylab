@@ -7,6 +7,7 @@ export const categories: readonly Category[] = [
   { slug: 'generators', key: 'generator', title: 'Generators', tone: 'amber', blurb: 'Standby and portable generators: what size you need, what installation really costs, and how to run one without hurting anyone.', hero: { pexelsId: 3702685, alt: 'A wooden utility pole and power lines against the sky' } },
   { slug: 'home-batteries', key: 'home-battery', title: 'Home Batteries', tone: 'teal', blurb: 'Whole-home and essential-load battery backup, with installed prices, sizing and how long a battery really lasts in an outage.', hero: { pexelsId: 17762230, alt: 'Solar panels on the roof of a house' } },
   { slug: 'power-stations', key: 'power-station', title: 'Power Stations', tone: 'teal', blurb: 'Portable power stations and solar generators: runtime math for fridges, CPAPs, sump pumps and phones.', hero: { pexelsId: 6233727, alt: 'A row of houses with solar panels on their roofs' } },
+  { slug: 'off-grid', key: 'off-grid', title: 'Off-Grid Cabins', tone: 'teal', blurb: 'Solar, batteries, well pumps and fridges for a cabin with no utility power, sized with real numbers before you buy.', hero: { pexelsId: 4501786, alt: 'A wooden house with solar panels on the roof, surrounded by green trees' } },
   { slug: 'outage-prep', key: 'outage-prep', title: 'Outage Safety', tone: 'amber', blurb: 'Carbon monoxide, transfer switches, backfeeding and the other things that turn a power outage into an emergency.', hero: { pexelsId: 5843608, alt: 'A single lit candle in a dark room' } },
 ];
 

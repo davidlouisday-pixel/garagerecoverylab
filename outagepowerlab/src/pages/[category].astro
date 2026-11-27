@@ -24,7 +24,7 @@ const articles = (await getCollection('articles', ({ data }) => isLive(data) && 
     </div>
     <h2 class="hub-sub">{articles.length === 0 ? 'Coming soon' : `${articles.length} ${articles.length === 1 ? 'guide' : 'guides'}`}</h2>
     {articles.length === 0 ? (
-      <p class="muted">Our first guides on this topic are on the way.</p>
+      <p class="muted">Our first guides on this topic are on the way. Meanwhile, try the <a href="/off-grid-solar-calculator/">off-grid solar calculator</a> or the <a href="/power-station-runtime-calculator/">power station runtime calculator</a>.</p>
     ) : (
       <ol class="rows">
         {articles.map((a) => (

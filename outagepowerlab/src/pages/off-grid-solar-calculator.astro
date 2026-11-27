@@ -1,0 +1,126 @@
+---
+// Off-grid solar and battery bank sizing calculator.
+// Method follows Penn State AE 868 "Stand-alone system sizing": battery = daily energy x days of autonomy / depth of discharge;
+// array = daily energy / peak sun hours, with an 85% panel derate (NMSU Circular 671). Inverter efficiency is our stated assumption.
+import Base from '../layouts/Base.astro';
+import '../styles/calc.css';
+
+const loads = [
+  { name: 'LED bulbs, 10 W each', w: 10, h: 5, qty: 6, on: true },
+  { name: 'DC fridge (enter Wh/day ÷ 24, see note)', w: 6, h: 24, on: true },
+  { name: 'Standard fridge (EnergyGuide kWh/yr ÷ 8.76)', w: 51, h: 24 },
+  { name: 'Phone charging', w: 10, h: 3, qty: 2, on: true },
+  { name: 'Laptop', w: 60, h: 4, on: true },
+  { name: 'Wi-Fi or satellite internet (check label)', w: 50, h: 12 },
+  { name: 'Flat screen TV, 46 inch', w: 190, h: 3 },
+  { name: 'Microwave, 1,000 W', w: 1500, h: 0.25 },
+  { name: 'Washing machine', w: 1200, h: 0.5 },
+  { name: 'Your own item', w: 0, h: 0 },
+];
+const faq = [
+  { q: 'How much solar do I need for an off-grid cabin?', a: 'Divide your daily energy use by your peak sun hours, then allow for losses. A weekend cabin using about 1,000 Wh a day with 4 peak sun hours needs roughly 300 watts of panels after an 85 percent derate. A full-time cabin with a standard fridge, washer and TV can need 1,300 watts or more. Size for your worst month, usually winter.' },
+  { q: 'How big a battery bank do I need off-grid?', a: 'Multiply daily energy use by the days of autonomy you want (how many cloudy days to ride through), then divide by the battery’s usable depth of discharge. At 1,000 Wh a day, 3 days and 80 percent usable depth, that is about 3,750 Wh, or about 310 Ah at 12 volts.' },
+  { q: 'What are peak sun hours?', a: 'The equivalent number of hours per day of full-strength sunlight at your site. NREL’s free PVWatts tool gives monthly values for any U.S. address. Use the lowest month you plan to live there, not the annual average.' },
+  { q: 'Should I use a 12V, 24V or 48V battery bank?', a: 'The same energy at a higher voltage means lower current, which allows thinner wire and smaller charge controllers. Small cabins often use 12 or 24 volts; larger systems usually use 48. Check what your inverter and charge controller support.' },
+];
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Off-Grid Solar Calculator', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' } },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+<Base title="Off-Grid Solar Calculator: Panels and Battery Bank Size" description="Size the solar panels and battery bank for an off-grid cabin from what you run each day, your peak sun hours and how many cloudy days you want to ride through." jsonLd={jsonLd}>
+  <article class="container calc" data-tone="teal">
+    <p class="label crumbs"><a href="/off-grid/">Off-grid cabins</a></p>
+    <h1>Off-grid solar calculator</h1>
+    <p class="standfirst">List what you will run each day. We size the battery bank to ride through cloudy days and the panels to refill it in your worst month.</p>
+
+    <form class="calc-grid well well--teal" id="calc" onsubmit="return false">
+      <div>
+        <div class="settings">
+          <label>Peak sun hours, worst month<input id="psh" type="number" min="1" max="8" step="0.1" value="4" inputmode="decimal" /></label>
+          <label>Days of autonomy<input id="days" type="number" min="1" max="10" step="0.5" value="3" inputmode="decimal" /></label>
+          <label>Battery usable depth (%)<input id="dod" type="number" min="20" max="100" step="5" value="80" inputmode="numeric" /></label>
+          <label>Battery bank voltage
+            <select id="volt"><option value="12">12 V</option><option value="24">24 V</option><option value="48" selected>48 V</option></select>
+          </label>
+          <label>Inverter efficiency (%)<input id="eff" type="number" min="50" max="100" step="1" value="85" inputmode="numeric" /></label>
+          <label>Panel derate (%)<input id="derate" type="number" min="50" max="100" step="1" value="85" inputmode="numeric" /></label>
+        </div>
+        <div class="table-scroll">
+          <table class="loads">
+            <thead><tr><th>On</th><th>Item</th><th>Qty</th><th>Watts</th><th>Hours a day</th></tr></thead>
+            <tbody>
+              {loads.map((l) => (
+                <tr data-row>
+                  <td><input type="checkbox" aria-label={`Include ${l.name}`} checked={l.on} /></td>
+                  <td><span class="name">{l.name}</span></td>
+                  <td><input type="number" min="0" max="50" step="1" value={l.qty ?? 1} aria-label={`${l.name} quantity`} data-qty /></td>
+                  <td><input type="number" min="0" max="5000" step="1" value={l.w} aria-label={`${l.name} watts`} data-w /></td>
+                  <td><input type="number" min="0" max="24" step="0.25" value={l.h} aria-label={`${l.name} hours per day`} data-h /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <output class="results" aria-live="polite">
+        <div><span class="label">Solar panels</span><span class="big" id="r-pv">0 W</span></div>
+        <div><span class="label">Battery bank</span><span class="big" id="r-batt">0 kWh</span></div>
+        <p class="label" id="r-ah"></p>
+        <div><span class="label">Daily use from the battery</span><span class="big" id="r-day">0 Wh</span></div>
+      </output>
+    </form>
+
+    <div class="calc-body">
+      <h2>How we calculate it</h2>
+      <p>This follows the stand-alone sizing method taught in Penn State's solar design course (AE 868), simplified for planning.</p>
+      <ul>
+        <li><strong>Daily energy:</strong> watts times quantity times hours a day for each item, divided by inverter efficiency to get what the battery must supply. The 85 percent default is our planning assumption; check your inverter's spec sheet.</li>
+        <li><strong>Battery bank:</strong> daily energy times days of autonomy, divided by usable depth of discharge. Penn State notes usable depth "ranges from 20%-80% depending on battery type". We default to 80 percent; use your battery maker's figure.</li>
+        <li><strong>Days of autonomy:</strong> how many days without sun the battery covers. Penn State's example pairs 3 days with about 95 percent availability at 5 peak sun hours. A backup generator lets you choose fewer days.</li>
+        <li><strong>Solar panels:</strong> daily energy divided by peak sun hours, then divided by the panel derate. New Mexico State's solar design guide uses 85 percent of a panel's rated power for real-world output.</li>
+        <li><strong>Peak sun hours:</strong> get monthly values for your site from NREL's free PVWatts tool, and enter the worst month you will use the cabin.</li>
+      </ul>
+      <p><strong>DC fridge note:</strong> efficient DC fridges are rated in watt-hours per day. SunDanzer, for example, rates its 5.6 cubic foot DC160 at 150 Wh a day at 90°F, which is about 6 W average (150 / 24). Enter your model's figure.</p>
+      <p>This is a planning estimate, not a design. Wire sizing, charge controller sizing, temperature derating and code compliance belong to a qualified installer. Running on batteries during a grid outage instead? Use the <a href="/power-station-runtime-calculator/">power station runtime calculator</a>.</p>
+
+      <section class="faq-mini" aria-labelledby="calc-faq">
+        <h2 id="calc-faq">Frequently asked questions</h2>
+        {faq.map((f) => (<><h3>{f.q}</h3><p>{f.a}</p></>))}
+      </section>
+      <h2>Sources</h2>
+      <ul class="sources">
+        <li>Penn State, AE 868, <a href="https://courses.ems.psu.edu/ae868/node/924" rel="nofollow noopener">Stand-alone system sizing</a> (battery and array formulas, depth of discharge, autonomy).</li>
+        <li>New Mexico State University, <a href="https://pubs.nmsu.edu/_circulars/CR671.pdf" rel="nofollow noopener">Circular 671, Solar-Powered Water Pump Design</a> (85 percent panel derate), revised September 2014.</li>
+        <li>NREL, <a href="https://pvwatts.nrel.gov/" rel="nofollow noopener">PVWatts calculator</a> (solar resource by location).</li>
+        <li>SunDanzer, <a href="https://sundanzer.com/product/dcr160-dcf160/" rel="nofollow noopener">DCR160/DCF160 specifications</a> (DC fridge Wh per day).</li>
+      </ul>
+    </div>
+  </article>
+</Base>
+<script is:inline>
+  (function () {
+    var $ = function (id) { return document.getElementById(id); }, form = $('calc');
+    var n = function (id) { return parseFloat($(id).value) || 0; };
+    function calc() {
+      var ac = 0;
+      form.querySelectorAll('[data-row]').forEach(function (tr) {
+        if (!tr.querySelector('input[type=checkbox]').checked) return;
+        ac += (parseFloat(tr.querySelector('[data-qty]').value) || 0) * (parseFloat(tr.querySelector('[data-w]').value) || 0) * Math.min(parseFloat(tr.querySelector('[data-h]').value) || 0, 24);
+      });
+      var eff = n('eff') / 100, dod = n('dod') / 100, der = n('derate') / 100, psh = n('psh');
+      var dc = eff > 0 ? ac / eff : 0;
+      var batt = dod > 0 ? dc * n('days') / dod : 0;
+      var pv = psh > 0 && der > 0 ? dc / psh / der : 0;
+      $('r-day').textContent = Math.round(dc).toLocaleString('en-US') + ' Wh';
+      $('r-batt').textContent = (batt / 1000).toFixed(1) + ' kWh';
+      $('r-ah').textContent = 'About ' + Math.round(batt / n('volt')).toLocaleString('en-US') + ' Ah at ' + $('volt').value + ' V';
+      $('r-pv').textContent = (Math.ceil(pv / 50) * 50).toLocaleString('en-US') + ' W';
+    }
+    form.addEventListener('input', calc); form.addEventListener('change', calc); calc();
+  })();
+</script>
+<style>
+  .settings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); margin-bottom: var(--space-lg); }
+  @media (max-width: 30rem) { .settings { grid-template-columns: minmax(0, 1fr); } }
+</style>
