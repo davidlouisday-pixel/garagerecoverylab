@@ -1,0 +1,135 @@
+---
+// Generator size calculator. Wattages are Honda's published estimates (running, starting) unless noted.
+// Method: total running watts of everything on at once, plus the single biggest extra starting surge
+// (motors start one at a time), divided by 0.9 so the generator runs at no more than 90% of capacity.
+import Base from '../layouts/Base.astro';
+import InstallerCta from '../components/InstallerCta.astro';
+import '../styles/calc.css';
+
+const loads = [
+  { id: 'fridge', name: 'Refrigerator or freezer (Energy Star)', run: 192, start: 1200, on: true },
+  { id: 'sump13', name: 'Sump pump, 1/3 HP', run: 800, start: 1300 },
+  { id: 'sump12', name: 'Sump pump, 1/2 HP', run: 1050, start: 2150 },
+  { id: 'furn13', name: 'Furnace fan, 1/3 HP', run: 700, start: 1400, on: true },
+  { id: 'furn12', name: 'Furnace fan, 1/2 HP', run: 875, start: 2350 },
+  { id: 'wac', name: 'Window air conditioner, 10,000 BTU', run: 1500, start: 2200 },
+  { id: 'micro', name: 'Microwave, 1,000 W', run: 1500, start: 1500 },
+  { id: 'coffee', name: 'Coffee maker, 4 cup', run: 600, start: 600 },
+  { id: 'washer', name: 'Washing machine', run: 1200, start: 1200 },
+  { id: 'dryer', name: 'Electric clothes dryer', run: 5400, start: 6750, v240: true },
+  { id: 'wh', name: 'Electric water heater', run: 4500, start: 4500, v240: true },
+  { id: 'range', name: 'Electric range, one 8-inch element', run: 2100, start: 2100, v240: true },
+  { id: 'dish', name: 'Dishwasher (cool dry)', run: 216, start: 540 },
+  { id: 'garage', name: 'Garage door opener', run: 720, start: 1420 },
+  { id: 'tv', name: 'Flat screen TV, 46 inch', run: 190, start: 190, on: true },
+  { id: 'laptop', name: 'Laptop', run: 250, start: 250, on: true },
+  { id: 'desktop', name: 'Desktop computer', run: 800, start: 800 },
+  { id: 'lights', name: 'LED bulbs, about 10 W each (check yours)', run: 10, start: 10, qty: 8, on: true },
+];
+const faq = [
+  { q: 'What size generator do I need to run my house?', a: 'Add the running watts of everything you want on at the same time, then add the largest extra starting surge, because motors such as fridges, pumps and furnace fans briefly draw two to three times their running watts when they start. Essentials only (fridge, furnace fan, sump pump, lights, phones) usually land between about 3,000 and 6,000 watts. Running central air, an electric range or an electric water heater pushes most homes into standby generator territory, above 10,000 watts.' },
+  { q: 'What size generator do I need for a refrigerator?', a: 'Honda estimates an Energy Star refrigerator at 132 to 192 running watts but about 1,200 watts to start. A fridge alone needs a generator that can surge past 1,200 watts, so a 2,000 watt inverter generator is a practical minimum once you add a few lights and chargers.' },
+  { q: 'Why does starting wattage matter?', a: 'Motors draw a surge for a second or two when they start. If the generator cannot supply it, the motor stalls or the generator trips. Because appliances rarely start at the same instant, sizing for every running load plus the single largest surge is the standard rule.' },
+  { q: 'Can I plug a generator into my house?', a: 'Only through a transfer switch or an interlock kit installed by a licensed electrician. Plugging a generator into a wall outlet or dryer outlet backfeeds power onto the utility lines, which can electrocute line workers and start fires.' },
+];
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Generator Size Calculator', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' } },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+<Base title="Generator Size Calculator: How Many Watts Do You Need?" description="Check off what you want to run in an outage and see the running watts, starting watts and generator size you need. Uses Honda's published appliance wattages." jsonLd={jsonLd}>
+  <article class="container calc" data-tone="amber">
+    <p class="label crumbs"><a href="/generators/">Generators</a></p>
+    <h1>Generator size calculator</h1>
+    <p class="standfirst">Check what you want running at the same time during an outage. Change any wattage to match the label on your own appliance.</p>
+
+    <form class="calc-grid well well--amber" id="calc" onsubmit="return false">
+      <div class="table-scroll">
+        <table class="loads">
+          <thead><tr><th>On</th><th>Appliance</th><th>Qty</th><th>Running W</th><th>Starting W</th></tr></thead>
+          <tbody>
+            {loads.map((l) => (
+              <tr data-row>
+                <td><input type="checkbox" aria-label={`Include ${l.name}`} checked={l.on} /></td>
+                <td><span class="name">{l.name}</span>{l.v240 && <><br /><span class="tag">usually 240V</span></>}</td>
+                <td><input type="number" min="0" max="50" step="1" value={l.qty ?? 1} aria-label={`${l.name} quantity`} data-qty /></td>
+                <td><input type="number" min="0" max="20000" step="10" value={l.run} aria-label={`${l.name} running watts`} data-run /></td>
+                <td><input type="number" min="0" max="30000" step="10" value={l.start} aria-label={`${l.name} starting watts`} data-start /></td>
+              </tr>
+            ))}
+            <tr data-row>
+              <td><input type="checkbox" aria-label="Include custom appliance" /></td>
+              <td><span class="name">Your own appliance (from its label)</span></td>
+              <td><input type="number" min="0" max="50" step="1" value="1" aria-label="Custom quantity" data-qty /></td>
+              <td><input type="number" min="0" max="20000" step="10" value="0" aria-label="Custom running watts" data-run /></td>
+              <td><input type="number" min="0" max="30000" step="10" value="0" aria-label="Custom starting watts" data-start /></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <output class="results" aria-live="polite">
+        <div><span class="label">Generator size to look for</span><span class="big" id="r-size">0 W</span></div>
+        <div><span class="label">Running watts, all on</span><span class="big" id="r-run">0 W</span></div>
+        <div><span class="label">Peak while the biggest motor starts</span><span class="big" id="r-peak">0 W</span></div>
+        <p class="verdict" id="r-verdict"></p>
+        <p class="warn" id="r-240" hidden>You picked a 240V appliance. You need a generator with 240V output and a transfer switch or interlock that feeds both legs of your panel.</p>
+      </output>
+    </form>
+
+    <div class="calc-body">
+      <h2>How we calculate it</h2>
+      <p>We add the running watts of every checked appliance, then add the single largest gap between an appliance's starting and running watts. Motors start a fraction of a second apart in practice, so this is the standard sizing rule. Generator makers also warn against adding up starting watts for everything, which oversizes the generator badly.</p>
+      <p>Then we divide by 0.9, because Home Depot's sizing guide advises running a generator at no more than 90 percent of its capacity. The result is the rated (running) output to look for on a spec sheet.</p>
+      <p>The wattages are Honda's published estimates. Your appliances may differ, and some, like central air conditioners and well pumps, vary too much to estimate. Read the label or ask your electrician. A licensed electrician should do a proper load calculation before you buy a standby generator.</p>
+      <h2>What the result means</h2>
+      <ul>
+        <li><strong>Under about 3,000 W:</strong> a portable power station or small inverter generator can cover it, run with extension cords.</li>
+        <li><strong>About 3,000 to 10,000 W:</strong> a portable generator connected through a transfer switch or interlock kit. See <a href="/generator-transfer-switch-cost/">what a transfer switch costs</a>.</li>
+        <li><strong>Over 10,000 W, or central air and electric appliances:</strong> a whole-house standby generator. See <a href="/how-much-does-a-whole-house-generator-cost/">what one costs installed</a>.</li>
+      </ul>
+      <p>Whatever you buy, never run a fuel-burning generator in a garage or near open windows. <a href="/can-you-run-a-generator-in-a-garage/">Why the garage is never safe</a>.</p>
+
+      <InstallerCta />
+
+      <section class="faq-mini" aria-labelledby="calc-faq">
+        <h2 id="calc-faq">Frequently asked questions</h2>
+        {faq.map((f) => (<><h3>{f.q}</h3><p>{f.a}</p></>))}
+      </section>
+      <h2>Sources</h2>
+      <ul class="sources">
+        <li>Honda Power Equipment, <a href="https://powerequipment.honda.com/generators/generator-wattage-estimation-guide" rel="nofollow noopener">Generator Wattage Estimation Guide</a> (appliance running and starting watts).</li>
+        <li>The Home Depot, <a href="https://www.homedepot.com/c/ab/choosing-the-right-size-generator/9ba683603be9fa5395fab901458f23e5" rel="nofollow noopener">Choosing the Right Size Generator</a> (90 percent capacity guidance), May 2025.</li>
+        <li>HomeGuide, <a href="https://homeguide.com/costs/generator-transfer-switch-installation-cost" rel="nofollow noopener">Generator transfer switch installation cost</a> (backfeeding risk).</li>
+      </ul>
+    </div>
+  </article>
+</Base>
+<script is:inline>
+  (function () {
+    var form = document.getElementById('calc');
+    var fmt = function (n) { return Math.round(n).toLocaleString('en-US') + ' W'; };
+    function calc() {
+      var run = 0, surge = 0, has240 = false;
+      form.querySelectorAll('[data-row]').forEach(function (tr) {
+        if (!tr.querySelector('input[type=checkbox]').checked) return;
+        var q = parseFloat(tr.querySelector('[data-qty]').value) || 0;
+        var r = parseFloat(tr.querySelector('[data-run]').value) || 0;
+        var s = parseFloat(tr.querySelector('[data-start]').value) || 0;
+        if (q <= 0) return;
+        run += r * q; surge = Math.max(surge, s - r);
+        if (tr.querySelector('.tag')) has240 = true;
+      });
+      var peak = run + surge, size = Math.ceil(peak / 0.9 / 100) * 100;
+      document.getElementById('r-run').textContent = fmt(run);
+      document.getElementById('r-peak').textContent = fmt(peak);
+      document.getElementById('r-size').textContent = fmt(size);
+      var v = size === 0 ? 'Check at least one appliance.'
+        : size <= 3000 ? 'A portable power station or a small inverter generator can cover this.'
+        : size <= 10000 ? 'A portable generator with a transfer switch or interlock kit, or a small standby unit.'
+        : 'This is standby generator territory. Get a load calculation from a licensed electrician.';
+      document.getElementById('r-verdict').textContent = v;
+      document.getElementById('r-240').hidden = !has240;
+    }
+    form.addEventListener('input', calc); form.addEventListener('change', calc); calc();
+  })();
+</script>

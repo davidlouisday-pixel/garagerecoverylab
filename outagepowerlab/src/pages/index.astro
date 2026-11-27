@@ -1,0 +1,158 @@
+---
+import { getCollection } from 'astro:content';
+import { isLive } from '../data/live';
+import Base from '../layouts/Base.astro';
+import Hero, { pexelsSrc } from '../components/Hero.astro';
+import { categories, toneOf } from '../data/categories';
+import { typeLabel } from '../data/labels';
+import { SITE_NAME, AUTHOR } from '../site.config.mjs';
+
+const latest = (await getCollection('articles', ({ data }) => isLive(data)))
+  .sort((a, b) => b.data.updated.valueOf() - a.data.updated.valueOf())
+  .slice(0, 6);
+const heroId = 5707737;
+// Figures and sources: see the generator cost guide, the battery cost guide and the garage safety guide.
+const figures = [
+  { figure: '$6k+', fig: 'amber', label: 'Low end of a typical installed whole-house standby generator (HomeGuide: $6,000 to $11,000).' },
+  { figure: '$15.6k', fig: 'teal', label: 'Average installed price of one 13.5 kWh home battery before incentives (EnergySage, 2026).' },
+  { figure: '20 ft', fig: 'amber', label: 'Minimum distance between a running portable generator and your windows, doors and vents (CDC).' },
+];
+const tools = [
+  { href: '/generator-size-calculator/', title: 'Generator size calculator', text: 'Pick what you want to run and see the running and starting watts you need.' },
+  { href: '/power-station-runtime-calculator/', title: 'Power station runtime calculator', text: 'How many hours a power station or battery runs your fridge, CPAP or sump pump.' },
+];
+---
+<Base
+  title={`${SITE_NAME}: Home Backup Power, Priced and Sized Honestly`}
+  description="Plain-numbers guides to standby generators, home batteries and portable power stations: what size you need, what installation costs, and how to stay safe."
+  image={pexelsSrc(heroId)}
+>
+  <section class="container poster">
+    <div class="poster-text">
+      <h1>Keep the power on without overpaying for it.</h1>
+      <p class="standfirst">Generators, home batteries and power stations solve different problems at very different prices. We show the real installed costs and the sizing math, with every source linked.</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="/generator-size-calculator/">What size do I need?</a>
+        <a class="btn btn--secondary" href="/find-an-installer/">Find an installer</a>
+      </div>
+    </div>
+    <Hero pexelsId={heroId} alt="Lightning striking near electricity power lines" shape="tall" class="poster-photo" />
+  </section>
+
+  <section class="container block" aria-labelledby="tools-h">
+    <h2 id="tools-h" class="block-head">Start with the math</h2>
+    <ul class="cats">
+      {tools.map((t) => (
+        <li data-tone="teal"><a href={t.href}><h3>{t.title}</h3><p>{t.text}</p></a></li>
+      ))}
+    </ul>
+  </section>
+
+  {latest.length > 0 && (
+    <section class="container block" aria-labelledby="latest">
+      <h2 id="latest" class="block-head">Latest guides</h2>
+      <ol class="rows">
+        {latest.map((a) => (
+          <li data-tone={toneOf(a.data.category)}>
+            <a href={`/${a.id}/`}>
+              <h3>{a.data.title}</h3>
+              <p>{a.data.description}</p>
+              <span class="label">{typeLabel[a.data.type] ?? a.data.type}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+
+  <section class="band" aria-labelledby="figures-h">
+    <div class="container">
+      <div class="band-head">
+        <h2 id="figures-h">Three numbers to know before you buy.</h2>
+        <p>Backup power is priced by installation, not by the box. Get the wiring and the safety right first.</p>
+      </div>
+      <dl class="figures">
+        {figures.map((w) => (
+          <div style={`--fig: var(--color-${w.fig}-bright)`}>
+            <dt>{w.figure}</dt>
+            <dd>{w.label}</dd>
+          </div>
+        ))}
+      </dl>
+      <a class="band-link" href="/how-much-does-a-whole-house-generator-cost/">What a whole-house generator really costs, line by line</a>
+    </div>
+  </section>
+
+  <section class="container block" aria-labelledby="browse">
+    <h2 id="browse" class="block-head">Browse by topic</h2>
+    <ul class="cats">
+      {categories.map((c) => (
+        <li data-tone={c.tone}>
+          <a href={`/${c.slug}/`}>
+            <h3>{c.title}</h3>
+            <p>{c.blurb}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="container block" aria-labelledby="who">
+    <div class="who opens who--amber">
+      <h2 id="who" class="who-head">Who writes this</h2>
+      <div>
+        <p class="standfirst who-text">{AUTHOR} researches backup power the way a careful buyer would: cost guides, spec sheets, safety agencies and hundreds of owner reviews. He does not sell or install equipment, and he does not claim to have tested it.</p>
+        <p class="who-links"><a href="/about/">About the site</a> <a href="/how-we-research/">How we research</a> <a href="/affiliate-disclosure/">How we make money</a></p>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .poster { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--gap-columns); align-items: end; padding-block: var(--space-2xl) var(--space-xl); }
+  .poster h1 { font-size: clamp(3rem, 6.2vw + 0.5rem, 6.5rem); max-width: 13ch; }
+  .poster .standfirst { margin-top: var(--space-lg); font-size: clamp(1.25rem, 0.8vw + 1rem, 1.75rem); max-width: 34ch; }
+  .poster .actions { margin-top: var(--space-xl); }
+  :global(.poster-photo) img { max-height: 620px; }
+  @media (max-width: 52rem) {
+    .poster { grid-template-columns: minmax(0, 1fr); padding-top: var(--space-xl); }
+    :global(.poster-photo) img { aspect-ratio: 4 / 3; max-height: none; }
+  }
+
+  .block { margin-top: var(--section-gap-s); }
+  .block-head { font-size: var(--text-section); margin-bottom: var(--space-lg); }
+
+  .band { margin-top: var(--section-gap-s); background: var(--color-ink); color: var(--color-paper); padding-block: var(--space-3xl); }
+  .band h2 { color: var(--color-paper); font-size: var(--text-section); }
+  .band-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--gap-columns); align-items: end; }
+  .band-head p { color: var(--color-paper-3); max-width: 40ch; }
+  .figures { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: var(--space-2xl) 0 0; border-top: var(--rule-hair) solid color-mix(in oklab, var(--color-paper) 35%, transparent); }
+  .figures > div { padding: var(--space-lg) var(--space-lg) 0 0; }
+  .figures > div + div { border-left: var(--rule-hair) solid color-mix(in oklab, var(--color-paper) 35%, transparent); padding-left: var(--space-lg); }
+  .figures dt { font-family: var(--font-display); font-weight: var(--display-weight); font-variation-settings: "wdth" 75, "opsz" 96; font-size: clamp(4rem, 9vw, 9rem); line-height: 0.9; letter-spacing: var(--tracking-display); font-variant-numeric: lining-nums tabular-nums; color: var(--fig); }
+  .figures dd { margin: var(--space-sm) 0 0; color: var(--color-paper-3); max-width: 28ch; }
+  .band-link { display: inline-block; margin-top: var(--space-2xl); color: var(--color-paper); font-family: var(--font-display); font-weight: 500; font-variation-settings: "opsz" 12; text-decoration-color: color-mix(in oklab, var(--color-paper) 50%, transparent); }
+  .band-link:hover { color: var(--color-paper); text-decoration-color: var(--color-paper); }
+  .band :focus-visible { outline-color: var(--color-paper); }
+  @media (max-width: 52rem) {
+    .band-head { grid-template-columns: minmax(0, 1fr); }
+    .figures { grid-template-columns: minmax(0, 1fr); }
+    .figures > div + div { border-left: 0; padding-left: 0; border-top: var(--rule-hair) solid color-mix(in oklab, var(--color-paper) 35%, transparent); margin-top: var(--space-lg); }
+  }
+
+  .cats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: var(--space-xl) var(--gap-columns); }
+  .cats a { display: block; height: 100%; border-top: var(--rule-heavy) solid var(--tone, var(--color-ink)); padding-top: var(--space-md); text-decoration: none; color: inherit; }
+  .cats h3 { font-size: var(--text-2xl); }
+  .cats a:hover h3 { text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--color-accent); text-underline-offset: 0.12em; }
+  .cats p { margin-top: var(--space-xs); font-size: 1rem; }
+  
+  
+
+  .who { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--gap-columns); }
+  .who-head { font-size: var(--text-2xl); }
+  .who--amber { border-top-color: var(--color-amber); }
+  .tools { margin-top: var(--space-lg); }
+  .who-text { font-size: clamp(1.5rem, 1.4vw + 1rem, 2.25rem); line-height: 1.25; max-width: 36ch; }
+  .who-links { display: flex; flex-wrap: wrap; gap: var(--space-lg); margin-top: var(--space-lg); font-family: var(--font-display); font-weight: 500; font-variation-settings: "opsz" 12; }
+  .who-links a { color: var(--color-ink); }
+  @media (max-width: 52rem) { .who { grid-template-columns: minmax(0, 1fr); } }
+</style>

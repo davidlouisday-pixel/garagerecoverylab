@@ -1,0 +1,156 @@
+---
+// Lead form. Posts to /api/quote, handled by worker/index.js (Cloudflare Worker + D1).
+// Consent text lives in src/data/consent.mjs and is stored with every lead.
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import { CONSENT_TEXT, CONSENT_VERSION } from '../data/consent.mjs';
+import { SITE_NAME, EMAIL } from '../site.config.mjs';
+
+const projects = [
+  ['standby-generator', 'Whole-house standby generator'],
+  ['transfer-switch', 'Transfer switch or interlock for a portable generator'],
+  ['home-battery', 'Home battery backup'],
+  ['solar-battery', 'Solar panels with battery'],
+  ['not-sure', 'Not sure yet, I want advice'],
+];
+const timeframes = [
+  ['asap', 'As soon as possible'],
+  ['1-3-months', 'In the next 1 to 3 months'],
+  ['3-12-months', 'In 3 to 12 months'],
+  ['researching', 'Just researching prices'],
+];
+const faq = [
+  { q: 'Is this free?', a: `Yes. ${SITE_NAME} does not charge homeowners. If an installer is paid to receive your request, that is between us and the installer, and it does not change your price.` },
+  { q: 'How many companies will call me?', a: 'One. We share your request with a single licensed installer serving your ZIP code, not a list of companies.' },
+  { q: 'Do I have to hire the installer?', a: 'No. A quote is free and there is no obligation. Getting two or three quotes on a generator or battery job is normal, and you can get the others yourself.' },
+  { q: 'What if no installer covers my area yet?', a: 'We will tell you by email and point you to the guides that help you compare quotes you get on your own. We will not sell your request to anyone else.' },
+];
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+<Base title="Find a Licensed Generator or Home Battery Installer" description="Get matched with one licensed installer near you for a standby generator, transfer switch or home battery. Free, no obligation, and only one company contacts you." jsonLd={jsonLd}>
+  <section class="container installer" data-tone="amber">
+    <div class="head">
+      <div>
+        <p class="label crumbs">Find an installer</p>
+        <h1>Get a quote from one licensed installer near you.</h1>
+        <p class="standfirst">Standby generators, transfer switches and home batteries all connect to your electrical panel. That means a licensed electrician and, in most places, a permit. Tell us about the job and we will match you with one installer who serves your area.</p>
+        <ul class="points">
+          <li><strong>One company, not ten.</strong> Your request goes to a single installer.</li>
+          <li><strong>Free and no obligation.</strong> You decide whether to hire them.</li>
+          <li><strong>Know the price first.</strong> Our cost guides show what similar jobs cost, so you can judge the quote.</li>
+        </ul>
+      </div>
+      <Hero pexelsId={27928762} alt="An electrician working on a home electrical panel" class="head-photo" />
+    </div>
+
+    <form class="quote well well--amber" id="quote" method="post" action="/api/quote">
+      <h2 class="form-head">Tell us about your project</h2>
+      <div class="fields">
+        <label class="wide">What do you need?
+          <select name="project" required>
+            <option value="">Choose one</option>
+            {projects.map(([v, l]) => <option value={v}>{l}</option>)}
+          </select>
+        </label>
+        <label>ZIP code<input name="zip" required inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" maxlength="5" /></label>
+        <label>Do you own the home?
+          <select name="owner" required>
+            <option value="">Choose one</option>
+            <option value="own">Yes, I own it</option>
+            <option value="rent">No, I rent</option>
+          </select>
+        </label>
+        <label class="wide">When do you want it done?
+          <select name="timeframe" required>
+            <option value="">Choose one</option>
+            {timeframes.map(([v, l]) => <option value={v}>{l}</option>)}
+          </select>
+        </label>
+        <label>First and last name<input name="name" required autocomplete="name" maxlength="100" /></label>
+        <label>Email<input name="email" type="email" required autocomplete="email" maxlength="200" /></label>
+        <label>Phone<input name="phone" type="tel" required autocomplete="tel" inputmode="tel" maxlength="20" /></label>
+        <label class="wide">Anything else? (optional)<textarea name="notes" rows="3" maxlength="1000" placeholder="For example: 200 amp panel, natural gas at the house, want to back up the whole home"></textarea></label>
+        <label class="hp" aria-hidden="true">Leave this empty<input name="website" tabindex="-1" autocomplete="off" /></label>
+        <input type="hidden" name="consent_version" value={CONSENT_VERSION} />
+        <input type="hidden" name="page" value="/find-an-installer/" />
+        <label class="consent wide"><input type="checkbox" name="consent" value="yes" required /> <span>{CONSENT_TEXT} See our <a href="/privacy/">privacy policy</a> and <a href="/terms/">terms</a>.</span></label>
+      </div>
+      <p class="actions"><button class="btn btn--primary" type="submit">Request my free quote</button></p>
+      <p class="status" id="quote-status" role="status" aria-live="polite"></p>
+      <p class="label alt">Prefer not to share your phone number? Email <a href={`mailto:${EMAIL}`}>{EMAIL}</a> and we will point you to installers you can contact yourself.</p>
+    </form>
+
+    <div class="body">
+      <h2>What happens next</h2>
+      <ol>
+        <li>We check your ZIP code against the installers we work with.</li>
+        <li>We send your request to one of them, usually within one business day.</li>
+        <li>The installer contacts you to schedule a site visit or a remote estimate. Generator and battery quotes almost always need a look at your panel and where the equipment will sit.</li>
+      </ol>
+      <h2>Before you sign any quote</h2>
+      <ul>
+        <li><strong>Check the license.</strong> Every state lets you look up an electrical contractor's license online. Make sure it is active and matches the company name on the quote.</li>
+        <li><strong>Ask who pulls the permit.</strong> The installer should, and the job should pass inspection before you pay the final balance.</li>
+        <li><strong>Get the full scope in writing:</strong> the unit, transfer switch, pad, gas or propane line, electrical work, permit, and startup.</li>
+        <li><strong>Compare against real numbers.</strong> See <a href="/how-much-does-a-whole-house-generator-cost/">what a whole-house generator costs</a> and <a href="/generator-transfer-switch-cost/">what a transfer switch costs</a>.</li>
+      </ul>
+      <section class="faq-mini" aria-labelledby="inst-faq">
+        <h2 id="inst-faq">Frequently asked questions</h2>
+        {faq.map((f) => (<><h3>{f.q}</h3><p>{f.a}</p></>))}
+      </section>
+    </div>
+  </section>
+</Base>
+<script is:inline>
+  (function () {
+    var form = document.getElementById('quote'), status = document.getElementById('quote-status');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      var btn = form.querySelector('button'); btn.disabled = true; status.textContent = 'Sending...';
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (res) {
+          if (res.ok) { window.location.href = '/quote-sent/'; return; }
+          status.textContent = res.j.error || 'Something went wrong. Please email us instead.'; btn.disabled = false;
+        })
+        .catch(function () { status.textContent = 'Could not send. Check your connection, or email us instead.'; btn.disabled = false; });
+    });
+  })();
+</script>
+<style>
+  .installer { padding-top: var(--space-2xl); }
+  .crumbs { margin-bottom: var(--space-md); color: var(--color-amber-deep); font-weight: 700; }
+  .head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--gap-columns); align-items: end; }
+  .head .standfirst { margin-top: var(--space-lg); }
+  .points { margin: var(--space-lg) 0 0; padding-left: 1.2em; max-width: 60ch; }
+  .points li + li { margin-top: var(--space-xs); }
+  .points strong { color: var(--color-ink); }
+  .quote { margin-top: var(--space-2xl); max-width: 900px; }
+  .form-head { font-size: var(--text-2xl); margin-bottom: var(--space-lg); }
+  .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); }
+  .wide { grid-column: 1 / -1; }
+  label { display: grid; gap: var(--space-2xs); font-size: var(--text-sm); color: var(--color-ink); }
+  input, select, textarea { min-height: 52px; padding: var(--space-xs) var(--space-sm); border: 1px solid var(--color-rule-2); border-radius: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: 1.0625rem; }
+  textarea { min-height: 96px; resize: vertical; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 0; border-color: var(--color-ink); }
+  .consent { display: flex; gap: var(--space-sm); align-items: flex-start; font-family: var(--font-body); font-size: var(--text-sm); line-height: 1.5; color: var(--color-ink-2); }
+  .consent input { min-height: 0; width: 22px; height: 22px; flex: none; margin-top: 2px; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .quote .actions { margin-top: var(--space-lg); }
+  .quote button { cursor: pointer; font-size: var(--text-md); }
+  .quote button[disabled] { opacity: 0.6; cursor: progress; }
+  .status { margin-top: var(--space-sm); color: var(--color-ink); }
+  .alt { margin-top: var(--space-md); }
+  .body { max-width: 760px; margin-top: var(--space-2xl); }
+  .body h2 { font-size: var(--text-2xl); margin-top: var(--space-2xl); }
+  .body p, .body ul, .body ol { margin-top: var(--space-md); }
+  .body li + li { margin-top: var(--space-xs); }
+  .body strong { color: var(--color-ink); font-weight: 600; }
+  .faq-mini h3 { font-size: var(--text-xl); margin-top: var(--space-lg); }
+  .faq-mini p { margin-top: var(--space-xs); }
+  @media (max-width: 52rem) { .head { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 30rem) { .fields { grid-template-columns: minmax(0, 1fr); } }
+</style>

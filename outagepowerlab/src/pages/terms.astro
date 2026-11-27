@@ -1,0 +1,15 @@
+---
+// TODO(owner): starting template, not legal advice. Review with a lawyer before selling leads.
+import Page from '../layouts/Page.astro';
+import { SITE_NAME } from '../site.config.mjs';
+---
+<Page title="Terms of Use" description={`The terms for using ${SITE_NAME} and its installer matching service.`} updated="November 27, 2026">
+  <h2>Information only</h2>
+  <p>Our guides and calculators are general information for planning. They are not electrical, engineering or legal advice. Sizing a generator or battery for your home, and connecting it to your wiring, requires a licensed electrician and usually a permit from your local building department.</p>
+  <h2>Installer matching</h2>
+  <p>{SITE_NAME} is a referral service. We are not a contractor and do not perform, supervise or guarantee any work. Installers are independent businesses. You decide whether to hire one, and any agreement is between you and that installer. Check that an installer holds a current license and insurance for your state before you sign.</p>
+  <h2>Accuracy</h2>
+  <p>Prices and specifications change. We date every guide and link our sources, but we cannot guarantee that every figure is current.</p>
+  <h2>Contact</h2>
+  <p>Questions about these terms: see our <a href="/contact/">contact page</a>.</p>
+</Page>

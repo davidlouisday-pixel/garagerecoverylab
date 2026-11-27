@@ -1,0 +1,36 @@
+---
+import { categories } from '../data/categories';
+import Wordmark from './Wordmark.astro';
+import { SITE_NAME } from '../site.config.mjs';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="cols">
+      <div class="about">
+        <a class="wordmark" href="/"><Wordmark /></a>
+        <p>Plain numbers on home backup power: generators, home batteries and portable power stations, and what they cost to install and run.</p>
+      </div>
+      <nav aria-label="Guides">
+        <h2>Guides and tools</h2>
+        <ul>{categories.map((c) => <li><a href={`/${c.slug}/`}>{c.title}</a></li>)}<li><a href="/generator-size-calculator/">Generator size calculator</a></li><li><a href="/power-station-runtime-calculator/">Power station runtime calculator</a></li><li><a href="/find-an-installer/">Find an installer</a></li></ul>
+      </nav>
+      <nav aria-label="Footer">
+        <h2>The site</h2>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/how-we-research/">How we research</a></li>
+          <li><a href="/affiliate-disclosure/">Affiliate disclosure</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="/privacy/#do-not-sell">Do not sell or share my info</a></li>
+          <li><a href="/terms/">Terms</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="fine">
+      © {year} {SITE_NAME}. We may earn a commission when you buy through links on this site, at no extra cost to you, and we may be paid by installers we refer you to.
+      Nothing here replaces a licensed electrician or your local code. Never run a fuel-burning generator indoors or in a garage. Header photographs via <a href="https://www.pexels.com/" rel="nofollow noopener" target="_blank">Pexels</a>.
+    </p>
+  </div>
+</footer>

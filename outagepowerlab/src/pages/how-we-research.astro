@@ -1,0 +1,23 @@
+---
+import Page from '../layouts/Page.astro';
+import { SITE_NAME } from '../site.config.mjs';
+---
+<Page title="How We Research" description={`The sources and rules ${SITE_NAME} uses for generator, home battery and power station guides.`}>
+  <p>We have not tested the equipment on this site, and we say so in every guide. What we do instead is gather the best published evidence, show where each number came from, and do the arithmetic in the open.</p>
+  <h2>Where our numbers come from</h2>
+  <ul>
+    <li><strong>Costs:</strong> home-services cost guides such as HomeGuide, Angi, HomeAdvisor and ConsumerAffairs, and installer marketplace data such as EnergySage. Sources often disagree, so we show each one rather than averaging them into a number nobody published.</li>
+    <li><strong>Specs and runtime:</strong> manufacturer spec sheets and manuals, and wattage guides from generator makers.</li>
+    <li><strong>Safety:</strong> the U.S. Consumer Product Safety Commission (CPSC), the CDC, and the National Electrical Code as described by those agencies and licensed trades.</li>
+    <li><strong>Owner experience:</strong> patterns across many owner reviews on retailer sites and forums. We report what owners commonly say, not one person's story.</li>
+  </ul>
+  <h2>Rules we follow</h2>
+  <ul>
+    <li>Every factual or safety claim links its source in a Sources list at the end of the guide.</li>
+    <li>Calculators state their assumptions on the page. Their answers are estimates for planning, not a substitute for an electrician's load calculation.</li>
+    <li>We date every guide and review it at least every six months, sooner when prices or rules change.</li>
+    <li>Brands and installers cannot pay for a recommendation.</li>
+  </ul>
+  <h2>Safety first</h2>
+  <p>Fuel-burning generators produce carbon monoxide, which kills people every year. Never run one inside a home, garage, basement or shed, even with doors open. Never plug a generator into a wall outlet to power your house. Read our <a href="/outage-prep/">outage safety guides</a> before you buy.</p>
+</Page>

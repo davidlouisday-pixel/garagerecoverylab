@@ -1,0 +1,12 @@
+---
+// TODO(owner): set up hello@<domain> in Cloudflare Email Routing (free) so it forwards to your inbox.
+import Page from '../layouts/Page.astro';
+import { SITE_NAME, EMAIL } from '../site.config.mjs';
+---
+<Page title="Contact" description={`Get in touch with ${SITE_NAME}.`}>
+  <p>Questions about a guide, a correction, or a topic you want covered? Email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.</p>
+  <p>Looking for an installer? Use our <a href="/find-an-installer/">find an installer</a> form instead, so we have your ZIP code and project details.</p>
+  <p>To stop calls or texts about a quote request, or to ask us to delete or not sell your information, email us with the subject "Opt out" or "Do not sell".</p>
+  <p>Installers and electricians: if you want to receive project requests in your area, email us with your license number and service area.</p>
+  <p>Brands: we do not accept payment for recommendations.</p>
+</Page>

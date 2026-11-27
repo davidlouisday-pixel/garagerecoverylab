@@ -1,0 +1,15 @@
+---
+// End-of-guide box that sends readers who need wiring work to the quote form.
+interface Props { topic?: string }
+const { topic = 'a generator, transfer switch or home battery' } = Astro.props;
+---
+<aside class="cta well well--amber" aria-labelledby="cta-head">
+  <h2 id="cta-head" class="cta-head">Need this installed?</h2>
+  <p>Anything wired into your panel, including {topic}, needs a licensed electrician and usually a permit. Tell us your ZIP code and project and we will match you with one licensed installer in your area. Free, and no obligation.</p>
+  <p class="actions"><a class="btn btn--primary" href="/find-an-installer/">Get an installer quote</a></p>
+</aside>
+<style>
+  .cta { margin-top: var(--space-3xl); }
+  .cta-head { font-size: var(--text-2xl); margin-bottom: var(--space-sm); }
+  .cta .actions { margin-top: var(--space-lg); }
+</style>

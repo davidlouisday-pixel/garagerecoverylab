@@ -1,0 +1,20 @@
+---
+import Wordmark from './Wordmark.astro';
+import { SITE_NAME } from '../site.config.mjs';
+const nav = [
+  { href: '/generators/', label: 'Generators' },
+  { href: '/home-batteries/', label: 'Home batteries' },
+  { href: '/power-stations/', label: 'Power stations' },
+  { href: '/outage-prep/', label: 'Outage safety' },
+  { href: '/find-an-installer/', label: 'Find an installer' },
+];
+const path = Astro.url.pathname;
+---
+<header class="site-header">
+  <div class="container">
+    <a class="wordmark" href="/" aria-label={`${SITE_NAME} home`}><Wordmark /></a>
+    <nav class="main-nav" aria-label="Main">
+      {nav.map((n) => <a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>)}
+    </nav>
+  </div>
+</header>

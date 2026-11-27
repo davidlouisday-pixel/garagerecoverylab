@@ -1,0 +1,12 @@
+---
+interface Props { author: string }
+const { author } = Astro.props;
+---
+<aside class="author well" aria-labelledby="author-name">
+  <h2 id="author-name" class="author-name">Researched by {author}</h2>
+  <p>{author} does not sell, install or test this equipment. Each guide pulls together manufacturer specs, published cost data, safety agencies and owner reports, and links every source. Read <a href="/how-we-research/">how we research</a> and <a href="/about/">who runs this site</a>.</p>
+</aside>
+<style>
+  .author { margin-top: var(--space-3xl); }
+  .author-name { font-size: var(--text-2xl); margin-block: var(--space-2xs) var(--space-sm); }
+</style>

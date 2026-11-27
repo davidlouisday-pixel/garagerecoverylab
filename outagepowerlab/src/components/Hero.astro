@@ -1,0 +1,24 @@
+---
+// Header photo served from the Pexels CDN (also used as og:image at 1200x630).
+// Pexels license: free for commercial use, no attribution required; we credit anyway.
+export const pexelsSrc = (id: number, w = 1200, h = 630) =>
+  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${w}&h=${h}&fit=crop`;
+
+interface Props { pexelsId: number; alt: string; shape?: 'wide' | 'tall'; class?: string }
+const { pexelsId, alt, shape = 'wide', class: cls } = Astro.props;
+const [w, h] = shape === 'tall' ? [960, 1080] : [1200, 630];
+const [w2, h2] = shape === 'tall' ? [480, 540] : [600, 315];
+---
+<figure class:list={['photo', 'hero-photo', `hero-photo--${shape}`, cls]}>
+  <img
+    src={pexelsSrc(pexelsId, w, h)}
+    srcset={`${pexelsSrc(pexelsId, w2, h2)} ${w2}w, ${pexelsSrc(pexelsId, w, h)} ${w}w`}
+    sizes={shape === 'tall' ? '(max-width: 52rem) 100vw, 45vw' : '(max-width: 60rem) 100vw, 880px'}
+    width={w} height={h} alt={alt} fetchpriority="high" decoding="async"
+  />
+  <figcaption>Photo via <a href={`https://www.pexels.com/photo/${pexelsId}/`} rel="nofollow noopener" target="_blank">Pexels</a></figcaption>
+</figure>
+<style>
+  .hero-photo--wide img { aspect-ratio: 1200 / 630; }
+  .hero-photo--tall img { aspect-ratio: 8 / 9; }
+</style>

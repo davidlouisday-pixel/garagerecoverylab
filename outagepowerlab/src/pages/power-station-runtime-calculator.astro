@@ -1,0 +1,123 @@
+---
+// Power station / battery runtime calculator.
+// Runtime = usable battery energy (capacity x usable share x inverter efficiency) / average load.
+// Average load per item = watts x hours used per day / 24. Defaults are stated on the page as assumptions.
+import Base from '../layouts/Base.astro';
+import '../styles/calc.css';
+
+const loads = [
+  { name: 'Refrigerator (average draw, see note)', w: 50, h: 24, on: true },
+  { name: 'Chest freezer (average draw, see note)', w: 30, h: 24 },
+  { name: 'LED bulbs, 10 W each', w: 10, h: 5, qty: 4, on: true },
+  { name: 'Phone charging', w: 10, h: 3, qty: 2, on: true },
+  { name: 'Wi-Fi router and modem (check label)', w: 15, h: 24, on: true },
+  { name: 'Laptop', w: 60, h: 4 },
+  { name: 'CPAP (enter your machine’s watts)', w: 0, h: 8 },
+  { name: 'Flat screen TV, 46 inch', w: 190, h: 3 },
+  { name: 'Sump pump, 1/3 HP (while running)', w: 800, h: 1 },
+  { name: 'Furnace fan, 1/3 HP (while running)', w: 700, h: 6 },
+];
+const faq = [
+  { q: 'How long will a power station run a refrigerator?', a: 'Divide the station’s usable watt-hours by the fridge’s average draw. A fridge rated at 450 kWh a year on its EnergyGuide label averages about 51 watts. A 1,000 Wh station at 85 percent inverter efficiency delivers about 850 Wh, or roughly 16 to 17 hours of that fridge alone. Older or larger fridges use more, and opening the door often shortens it.' },
+  { q: 'How do I find my refrigerator’s average watts?', a: 'Find the estimated yearly electricity use in kWh on the yellow EnergyGuide label, or look the model up in the ENERGY STAR product finder. Divide that number by 8.76 to get average watts. For example, 400 kWh a year divided by 8.76 is about 46 watts.' },
+  { q: 'Why is the runtime shorter than capacity divided by watts?', a: 'Power stations convert battery DC power to household AC through an inverter, which loses some energy as heat. This calculator assumes 85 percent efficiency by default. Running devices from the DC or USB ports skips the inverter and usually lasts longer.' },
+  { q: 'Can a power station run a sump pump?', a: 'Only if its continuous output and surge rating cover the pump. Honda estimates a 1/3 HP sump pump at about 800 running watts and 1,300 watts to start. Because a sump pump runs in short bursts, runtime depends on how often it cycles, which depends on how much water is coming in.' },
+];
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Power Station Runtime Calculator', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' } },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+<Base title="Power Station Runtime Calculator: How Long Will It Last?" description="Enter a power station or battery's capacity and what you'll run during an outage to see how many hours and days it lasts. Fridge, CPAP, lights, router and more." jsonLd={jsonLd}>
+  <article class="container calc" data-tone="teal">
+    <p class="label crumbs"><a href="/power-stations/">Power stations</a></p>
+    <h1>Power station runtime calculator</h1>
+    <p class="standfirst">Enter your power station or home battery and what you will run. Watts times hours per day gives each item's daily energy, and the battery's usable energy tells you how long it lasts.</p>
+
+    <form class="calc-grid well well--teal" id="calc" onsubmit="return false">
+      <div>
+        <div class="settings">
+          <label>Battery capacity (Wh)<input id="cap" type="number" min="100" max="100000" step="10" value="1000" inputmode="numeric" /></label>
+          <label>Usable share (%)<input id="dod" type="number" min="50" max="100" step="1" value="100" inputmode="numeric" /></label>
+          <label>Inverter efficiency (%)<input id="eff" type="number" min="50" max="100" step="1" value="85" inputmode="numeric" /></label>
+          <label>Continuous output rating (W)<input id="out" type="number" min="100" max="30000" step="50" value="1500" inputmode="numeric" /></label>
+        </div>
+        <div class="table-scroll">
+          <table class="loads">
+            <thead><tr><th>On</th><th>Item</th><th>Qty</th><th>Watts</th><th>Hours a day</th></tr></thead>
+            <tbody>
+              {loads.map((l) => (
+                <tr data-row>
+                  <td><input type="checkbox" aria-label={`Include ${l.name}`} checked={l.on} /></td>
+                  <td><span class="name">{l.name}</span></td>
+                  <td><input type="number" min="0" max="50" step="1" value={l.qty ?? 1} aria-label={`${l.name} quantity`} data-qty /></td>
+                  <td><input type="number" min="0" max="5000" step="1" value={l.w} aria-label={`${l.name} watts`} data-w /></td>
+                  <td><input type="number" min="0" max="24" step="0.5" value={l.h} aria-label={`${l.name} hours per day`} data-h /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <output class="results" aria-live="polite">
+        <div><span class="label">Runtime</span><span class="big" id="r-hours">0 h</span></div>
+        <div><span class="label">That is about</span><span class="big" id="r-days">0 days</span></div>
+        <div><span class="label">Energy used per day</span><span class="big" id="r-day">0 Wh</span></div>
+        <p class="label" id="r-usable"></p>
+        <p class="warn" id="r-warn" hidden></p>
+      </output>
+    </form>
+
+    <div class="calc-body">
+      <h2>How we calculate it</h2>
+      <p>Each item's daily energy is watts times quantity times hours of use per day. Usable energy is the battery capacity times the usable share times inverter efficiency. Runtime is usable energy divided by the average draw (daily energy divided by 24 hours).</p>
+      <ul>
+        <li><strong>Inverter efficiency, 85 percent by default:</strong> this is our planning assumption, not a measured number for any product. Check your model's manual and change it.</li>
+        <li><strong>Usable share, 100 percent by default:</strong> power station capacity ratings are usually the whole battery. Lower it if your manual says otherwise.</li>
+        <li><strong>Refrigerators and freezers</strong> cycle on and off, so we use their average draw, not the running watts. Take the kWh per year from the yellow EnergyGuide label and divide by 8.76. The defaults (50 W fridge, 30 W freezer) are examples only.</li>
+        <li><strong>Lights, chargers, router and laptop</strong> defaults are rough examples, not measurements. Use the watts printed on your devices or chargers.</li>
+        <li><strong>Pumps and furnace fans</strong> use Honda's running watts. Set the hours to how long they actually run in a day, which you may need to guess.</li>
+      </ul>
+      <p>The output rating check warns you if everything on at once would exceed the station's continuous output. Motors also need a starting surge, so compare against the surge rating in the manual too.</p>
+      <p>Need to run more than a power station can? Size a generator with our <a href="/generator-size-calculator/">generator size calculator</a>, or see <a href="/power-stations/">power station guides</a>.</p>
+
+      <section class="faq-mini" aria-labelledby="calc-faq">
+        <h2 id="calc-faq">Frequently asked questions</h2>
+        {faq.map((f) => (<><h3>{f.q}</h3><p>{f.a}</p></>))}
+      </section>
+      <h2>Sources</h2>
+      <ul class="sources">
+        <li>Honda Power Equipment, <a href="https://powerequipment.honda.com/generators/generator-wattage-estimation-guide" rel="nofollow noopener">Generator Wattage Estimation Guide</a> (sump pump, furnace fan and TV watts).</li>
+        <li>ENERGY STAR, <a href="https://www.energystar.gov/productfinder/product/certified-residential-refrigerators/results" rel="nofollow noopener">certified refrigerators product finder</a> (annual energy use by model).</li>
+      </ul>
+    </div>
+  </article>
+</Base>
+<script is:inline>
+  (function () {
+    var $ = function (id) { return document.getElementById(id); }, form = $('calc');
+    function calc() {
+      var daily = 0, peak = 0;
+      form.querySelectorAll('[data-row]').forEach(function (tr) {
+        if (!tr.querySelector('input[type=checkbox]').checked) return;
+        var q = parseFloat(tr.querySelector('[data-qty]').value) || 0, w = parseFloat(tr.querySelector('[data-w]').value) || 0, h = parseFloat(tr.querySelector('[data-h]').value) || 0;
+        daily += q * w * Math.min(h, 24); peak += q * w;
+      });
+      var usable = (parseFloat($('cap').value) || 0) * ((parseFloat($('dod').value) || 0) / 100) * ((parseFloat($('eff').value) || 0) / 100);
+      var avg = daily / 24, hours = avg > 0 ? usable / avg : 0;
+      $('r-hours').textContent = avg > 0 ? (hours < 10 ? hours.toFixed(1) : Math.round(hours).toLocaleString('en-US')) + ' h' : 'Add a load';
+      $('r-days').textContent = avg > 0 ? (hours / 24).toFixed(1) + ' days' : '0 days';
+      $('r-day').textContent = Math.round(daily).toLocaleString('en-US') + ' Wh';
+      $('r-usable').textContent = Math.round(usable).toLocaleString('en-US') + ' Wh usable from this battery';
+      var out = parseFloat($('out').value) || 0;
+      var warn = $('r-warn');
+      warn.hidden = !(out > 0 && peak > out);
+      warn.textContent = 'If everything is on at once it draws ' + Math.round(peak).toLocaleString('en-US') + ' W, more than the ' + Math.round(out).toLocaleString('en-US') + ' W continuous rating. Stagger the big loads.';
+    }
+    form.addEventListener('input', calc); form.addEventListener('change', calc); calc();
+  })();
+</script>
+<style>
+  .settings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); margin-bottom: var(--space-lg); }
+  @media (max-width: 30rem) { .settings { grid-template-columns: minmax(0, 1fr); } }
+</style>

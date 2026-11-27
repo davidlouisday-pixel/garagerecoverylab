@@ -1,0 +1,13 @@
+---
+interface Props { text: string; tone?: 'amber' | 'teal' }
+const { text, tone } = Astro.props;
+---
+<section class:list={['quick', 'well', tone && `well--${tone}`]} aria-labelledby="quick-answer">
+  <h2 id="quick-answer" class="quick-head">Quick answer</h2>
+  <p class="answer">{text}</p>
+</section>
+<style>
+  .quick { margin-block: var(--space-xl); }
+  .quick-head { font-size: var(--text-lg); margin-bottom: var(--space-xs); }
+  .answer { font-size: var(--text-lead); line-height: 1.45; color: var(--color-ink); max-width: 60ch; }
+</style>

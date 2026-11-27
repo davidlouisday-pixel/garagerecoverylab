@@ -1,0 +1,39 @@
+---
+// Links each article to up to three others: same category first, newest first.
+import { getCollection } from 'astro:content';
+import { isLive } from '../data/live';
+import { toneOf } from '../data/categories';
+import { typeLabel } from '../data/labels';
+
+interface Props { id: string; category: string }
+const { id, category } = Astro.props;
+const all = (await getCollection('articles', ({ data }) => isLive(data))).filter((a) => a.id !== id);
+const byDate = (a: (typeof all)[number], b: (typeof all)[number]) => b.data.updated.valueOf() - a.data.updated.valueOf();
+const picks = [
+  ...all.filter((a) => a.data.category === category).sort(byDate),
+  ...all.filter((a) => a.data.category !== category).sort(byDate),
+].slice(0, 3);
+---
+{picks.length > 0 && (
+  <section class="related" aria-labelledby="related">
+    <h2 id="related">Keep reading</h2>
+    <ul>
+      {picks.map((a) => (
+        <li data-tone={toneOf(a.data.category)}>
+          <a href={`/${a.id}/`}>
+            <span class="label">{typeLabel[a.data.type] ?? a.data.type}</span>
+            <h3>{a.data.title}</h3>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+<style>
+  .related { margin-top: var(--space-3xl); }
+  .related h2 { font-size: var(--text-section); margin-bottom: var(--space-lg); }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: var(--gap-columns); }
+  a { display: block; height: 100%; border-top: var(--rule-heavy) solid var(--tone, var(--color-ink)); padding-top: var(--space-sm); text-decoration: none; color: inherit; }
+  h3 { font-size: var(--text-xl); margin-top: var(--space-2xs); }
+  a:hover h3 { text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--color-accent); text-underline-offset: 0.12em; }
+</style>

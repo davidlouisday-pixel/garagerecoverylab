@@ -1,0 +1,34 @@
+/* Shared calculator layout. */
+.calc { padding-top: var(--space-2xl); }
+.calc .crumbs { margin-bottom: var(--space-md); }
+.calc .crumbs a { color: var(--tone-deep, var(--color-ink)); font-weight: 700; }
+.calc .standfirst { margin-top: var(--space-lg); }
+.calc-grid { margin-top: var(--space-xl); display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-xl); max-width: 1180px; }
+.calc label { display: grid; gap: var(--space-2xs); font-size: var(--text-sm); color: var(--color-ink); }
+.calc input, .calc select { min-height: 48px; padding: 0 var(--space-sm); border: 1px solid var(--color-rule-2); border-radius: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: 1.0625rem; }
+.calc input:focus-visible, .calc select:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 0; border-color: var(--color-ink); }
+.results { display: grid; gap: var(--space-md); align-content: start; border-left: 1px solid var(--color-rule-2); padding-left: var(--space-xl); position: sticky; top: var(--space-lg); align-self: start; }
+.results > div { display: grid; }
+.big { font-family: var(--font-display); font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; font-size: clamp(2.5rem, 4vw, 4rem); line-height: 1; color: var(--color-ink); font-variant-numeric: lining-nums tabular-nums; }
+.results > div:first-child .big { color: var(--tone-deep, var(--color-ink)); }
+.verdict { font-size: 1rem; color: var(--color-ink); }
+.warn { color: var(--color-error); font-size: var(--text-sm); }
+.calc-body { max-width: 760px; margin-top: var(--space-2xl); }
+.calc-body h2 { font-size: var(--text-2xl); margin-top: var(--space-2xl); }
+.calc-body p, .calc-body ul { margin-top: var(--space-md); }
+.calc-body li + li { margin-top: var(--space-xs); }
+.calc-body table { margin-top: var(--space-lg); border-top: var(--rule-heavy) solid var(--tone, var(--color-ink)); }
+.faq-mini h3 { font-size: var(--text-xl); margin-top: var(--space-lg); }
+.faq-mini p { margin-top: var(--space-xs); }
+.sources { font-size: var(--text-sm); }
+.loads { width: 100%; border-collapse: collapse; }
+.loads td, .loads th { padding: var(--space-xs) var(--space-sm) var(--space-xs) 0; vertical-align: middle; }
+.loads input[type="number"] { width: 100%; min-width: 4.5rem; min-height: 40px; }
+.loads input[type="checkbox"] { min-height: 0; width: 20px; height: 20px; }
+.loads .name { font-size: 1rem; color: var(--color-ink); }
+.loads .tag { font-size: var(--text-xs); color: var(--color-muted); font-family: var(--font-display); }
+@media (max-width: 52rem) {
+  .calc-grid { grid-template-columns: minmax(0, 1fr); }
+  .results { order: -1; position: static; border-left: 0; padding-left: 0; border-bottom: 1px solid var(--color-rule-2); padding-bottom: var(--space-lg); }
+  .big { font-size: 2.25rem; }
+}
