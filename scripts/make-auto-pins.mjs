@@ -22,6 +22,8 @@ const LABEL = {
   'swim-spa': 'Swim spa guide', 'garage-gym': 'Garage gym guide', 'massage-chair': 'Massage chair guide',
   'red-light': 'Red light guide',
 };
+// Roundup answers name products and prices that change; a pin image can't be updated, so use the description.
+const PRICED = new Set(['roundup', 'review', 'versus']);
 const COLD = new Set(['cold-plunge', 'massage-chair']);
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -90,7 +92,7 @@ function render(v, d) {
     <div class="kick">${esc(label)}</div><h1 class="disp">${esc(answerHook(d))}</h1>${sents(d.quickAnswer)[0].length > 95 && rest ? `<p class="sub">${esc(clip(rest, 90))}</p>` : ''}<span class="cta">Read the full guide</span></div>
     <div class="foot">${brand}</div></div>`;
   return `<div class="v3"><div class="bar"></div><div class="wrap"><div class="kick">${esc(label)}</div>
-    <h1 class="disp">${esc(clip(question(d.targetKeyword), 44))}</h1><div class="ans"><b>The short answer</b>${esc(sentences(d.quickAnswer, 260))}</div></div>
+    <h1 class="disp">${esc(clip(question(d.targetKeyword), 44))}</h1><div class="ans"><b>The short answer</b>${esc(sentences(PRICED.has(d.type) ? d.description : d.quickAnswer, 260))}</div></div>
     <div class="foot">${brand}</div><img class="strip" src="${photo(id, 1000, 400)}"></div>`;
 }
 
