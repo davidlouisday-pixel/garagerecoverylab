@@ -15,4 +15,4 @@ Steps marked **David** need your account or password. Everything else Claude doe
 11. **Later, David:** before charging any installer for a lead, have a lawyer review `src/data/consent.mjs`, the privacy policy and the terms, and check your state's rules for home improvement referral services.
 
 Launch pages: home, 4 hubs, find an installer, 2 calculators, 3 guides, about, how we research, disclosure, privacy, terms, contact.
-Scheduled: Dec 3 home battery cost, Dec 6 generator sizing, Dec 10 power station fridge runtime, Dec 13 generator vs battery. Push the dates if launch slips.
+Scheduled: Dec 3 home battery cost, Dec 6 generator sizing, Dec 10 power station fridge runtime, Dec 13 generator vs battery, Dec 17 off-grid cabin solar, Dec 20 solar well pump, Dec 24 off-grid solar cost. Push the dates if launch slips.
