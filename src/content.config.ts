@@ -41,6 +41,8 @@ const articles = defineCollection({
     draft: z.boolean().default(true),
     // Header photo from Pexels (free commercial license). Mood shots only, never shown as a specific product.
     hero: z.object({ pexelsId: z.number(), alt: z.string() }).optional(),
+    // Our own tall Pinterest graphic in public/pins/ (made by scripts/make-pins.mjs). Used as the RSS image when set.
+    pin: z.string().optional(),
   }),
 });
 

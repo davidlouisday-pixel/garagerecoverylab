@@ -19,8 +19,8 @@ author: Cole Garrison
 published: 2026-11-28
 updated: 2026-11-28
 hero:
-  pexelsId: 15857058
-  alt: "Wooden benches and a stove inside a sauna"
+  pexelsId: 34097625
+  alt: "Steam rising from the stones of a sauna heater"
 draft: false
 ---
 

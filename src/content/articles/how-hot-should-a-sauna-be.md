@@ -24,6 +24,7 @@ updated: 2026-11-26
 hero:
   pexelsId: 18285438
   alt: "Water being poured over the hot stones of a sauna heater"
+pin: /pins/sauna-temperature-chart.png
 draft: false
 ---
 
@@ -38,6 +39,8 @@ This guide is based on published studies and medical reviews, listed at the end.
 | Infrared | 110 to 150°F | About 109 to 122°F in post-workout recovery trials |
 
 If you are new, start at the bottom of those ranges for 5 to 10 minutes. If you want the sessions the Finnish research describes, a traditional sauna in the 170s °F with low humidity is the closest match.
+
+![Chart of sauna temperatures: traditional 150 to 195°F, Finnish study average 174°F, infrared 110 to 135°F, steam room 110 to 122°F, beginners 150 to 160°F](/pins/sauna-temperature-chart.png)
 
 ## What the Finnish study actually measured
 

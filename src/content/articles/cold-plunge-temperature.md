@@ -20,8 +20,9 @@ author: Cole Garrison
 published: 2026-12-01
 updated: 2026-12-01
 hero:
-  pexelsId: 14815628
-  alt: "A man sitting in icy water beside a wooden dock in winter"
+  pexelsId: 14815629
+  alt: "A man climbing down a ladder into a freezing lake"
+pin: /pins/cold-plunge-chart.png
 draft: false
 ---
 
@@ -35,6 +36,8 @@ This guide is based on published studies and reviews, listed at the end. Cole do
 | "Cold water immersion" in the Cochrane review | Below 59°F (15°C) | Varied by trial |
 | Habit of experienced winter swimmers | Cold open water | About 11 minutes per week in total |
 | Starting out (our suggestion, not a study dose) | 55 to 60°F | 1 to 3 minutes |
+
+![Chart of cold plunge research: 52 to 59°F and 11 to 15 minutes best for soreness, winter swimmers about 11 minutes a week, beginners 1 to 3 minutes, wait after lifting](/pins/cold-plunge-chart.png)
 
 ## What the soreness research found
 
