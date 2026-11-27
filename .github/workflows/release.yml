@@ -1,6 +1,7 @@
 # Scheduled releases. Guides with a future `published:` date are left out of the build until that day.
-# Each morning this checks whether any guide goes live today; if so it records the release in
-# RELEASES.md and pushes to main, which makes Cloudflare rebuild the site, then pings IndexNow.
+# Each morning this renders any missing Pinterest rotation pins, records today's guide releases in
+# RELEASES.md, and pushes to main every day, which makes Cloudflare rebuild the site so new guides
+# and the day's scheduled pins (src/data/pins.ts) go out. Then it pings IndexNow for new guides.
 name: Scheduled release
 on:
   schedule:
@@ -25,15 +26,27 @@ jobs:
           echo "today=$today" >> "$GITHUB_OUTPUT"
           echo "slugs=$slugs" >> "$GITHUB_OUTPUT"
           echo "Due today: ${slugs:-none}"
-      - name: Record the release and push
-        if: steps.due.outputs.slugs != ''
+      - name: Render missing Pinterest pins
         run: |
-          grep -q "^- ${{ steps.due.outputs.today }}:" RELEASES.md 2>/dev/null && { echo "Already released today."; exit 0; }
-          echo "- ${{ steps.due.outputs.today }}: ${{ steps.due.outputs.slugs }}" >> RELEASES.md
+          npm ci --no-audit --no-fund
+          npm i --no-save --no-audit --no-fund playwright@1.49.1
+          npx playwright install --with-deps chromium
+          node scripts/make-auto-pins.mjs
+      - name: Record the day and push
+        run: |
+          today="${{ steps.due.outputs.today }}"
+          slugs="${{ steps.due.outputs.slugs }}"
+          if [ -n "$slugs" ] && ! grep -q "^- ${today}:" RELEASES.md 2>/dev/null; then
+            echo "- ${today}: ${slugs}" >> RELEASES.md
+          fi
+          # A daily change so Cloudflare rebuilds even on days with no guide, which airs the day's pins.
+          echo "$today" > .github/last-rebuild
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add RELEASES.md
-          git commit -m "Release ${{ steps.due.outputs.today }}: ${{ steps.due.outputs.slugs }}"
+          git add RELEASES.md .github/last-rebuild public/pins/auto
+          git diff --cached --quiet && { echo "Nothing to push."; exit 0; }
+          git commit -m "Daily rebuild ${today}${slugs:+: release ${slugs}}"
+          git pull --rebase origin main
           git push origin HEAD:main
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
       - name: Wait for the Cloudflare deploy
@@ -51,5 +64,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Ping IndexNow
-        if: env.sha != ''
+        if: env.sha != '' && steps.due.outputs.slugs != ''
         run: node scripts/indexnow.mjs --slugs "${{ steps.due.outputs.slugs }}"
