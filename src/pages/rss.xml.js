@@ -1,12 +1,13 @@
 // RSS feed of published guides. Pinterest can auto-publish pins from it; each item carries a tall photo.
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
+import { isLive } from '../data/live';
 
 const tall = (id) =>
   `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1500&fit=crop`;
 
 export async function GET(context) {
-  const articles = (await getCollection('articles', ({ data }) => !data.draft))
+  const articles = (await getCollection('articles', ({ data }) => isLive(data)))
     .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
   return rss({
     title: 'GarageRecoveryLab',

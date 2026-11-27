@@ -1,12 +1,13 @@
 ---
 // Links each article to up to three others: same category first, newest first.
 import { getCollection } from 'astro:content';
+import { isLive } from '../data/live';
 import { tempOf } from '../data/categories';
 import { typeLabel } from '../data/labels';
 
 interface Props { id: string; category: string }
 const { id, category } = Astro.props;
-const all = (await getCollection('articles', ({ data }) => !data.draft)).filter((a) => a.id !== id);
+const all = (await getCollection('articles', ({ data }) => isLive(data))).filter((a) => a.id !== id);
 const byDate = (a: (typeof all)[number], b: (typeof all)[number]) => b.data.updated.valueOf() - a.data.updated.valueOf();
 const picks = [
   ...all.filter((a) => a.data.category === category).sort(byDate),

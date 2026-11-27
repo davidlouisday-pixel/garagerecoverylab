@@ -1,0 +1,55 @@
+# Scheduled releases. Guides with a future `published:` date are left out of the build until that day.
+# Each morning this checks whether any guide goes live today; if so it records the release in
+# RELEASES.md and pushes to main, which makes Cloudflare rebuild the site, then pings IndexNow.
+name: Scheduled release
+on:
+  schedule:
+    - cron: '0 11 * * *' # 11:00 UTC, 6 AM Eastern
+  workflow_dispatch:
+permissions:
+  contents: write
+  checks: read
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Find guides going live today
+        id: due
+        run: |
+          today=$(date -u +%F)
+          slugs=$(grep -l -E "^published: ${today}\s*$" src/content/articles/*.md | xargs -r grep -L -E '^draft: true' | xargs -r -n1 basename | sed 's/\.md$//' | grep -v '^_' | paste -sd, -)
+          echo "today=$today" >> "$GITHUB_OUTPUT"
+          echo "slugs=$slugs" >> "$GITHUB_OUTPUT"
+          echo "Due today: ${slugs:-none}"
+      - name: Record the release and push
+        if: steps.due.outputs.slugs != ''
+        run: |
+          grep -q "^- ${{ steps.due.outputs.today }}:" RELEASES.md 2>/dev/null && { echo "Already released today."; exit 0; }
+          echo "- ${{ steps.due.outputs.today }}: ${{ steps.due.outputs.slugs }}" >> RELEASES.md
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add RELEASES.md
+          git commit -m "Release ${{ steps.due.outputs.today }}: ${{ steps.due.outputs.slugs }}"
+          git push origin HEAD:main
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+      - name: Wait for the Cloudflare deploy
+        if: env.sha != ''
+        run: |
+          for i in $(seq 1 40); do
+            state=$(gh api repos/${{ github.repository }}/commits/$sha/check-runs \
+              -q '[.check_runs[] | select(.name | startswith("Workers Builds")) | .conclusion] | first // "pending"')
+            echo "attempt $i: $state"
+            if [ "$state" = "success" ]; then exit 0; fi
+            if [ "$state" = "failure" ] || [ "$state" = "cancelled" ]; then echo "Deploy failed."; exit 1; fi
+            sleep 30
+          done
+          echo "Timed out waiting for the deploy."; exit 1
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Ping IndexNow
+        if: env.sha != ''
+        run: node scripts/indexnow.mjs --slugs "${{ steps.due.outputs.slugs }}"
