@@ -27,7 +27,7 @@ jobs:
           if git diff --name-only "$base" HEAD | grep -q '^scripts/make-auto-pins.mjs$'; then only=""; else
             only=$(git diff --name-only --diff-filter=AM "$base" HEAD -- src/content/articles | xargs -r -n1 basename | sed 's/\.md$//' | grep -v '^_' | paste -sd, -)
           fi
-          node scripts/make-auto-pins.mjs --force --out pin-preview ${only:+--only "$only"}
+          node scripts/make-auto-pins.mjs --force --sheet --out pin-preview ${only:+--only "$only"}
       - uses: actions/upload-artifact@v4
         with:
           name: pin-preview

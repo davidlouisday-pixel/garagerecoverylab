@@ -118,5 +118,15 @@ for (const { slug, d } of guides) {
     made++;
   }
 }
+// --sheet: one small contact sheet of up to 12 rendered pins, printed as base64 for checking from the run log.
+if (flag('--sheet')) {
+  const files = fs.readdirSync(OUT).filter((f) => f.endsWith('.jpg')).sort().slice(0, 12);
+  await page.setViewportSize({ width: 1200, height: 1800 });
+  await page.setContent(`<body style="margin:0;display:grid;grid-template-columns:repeat(4,300px)">${files.map((f) =>
+    `<img style="width:300px;height:450px" src="data:image/jpeg;base64,${fs.readFileSync(path.join(OUT, f)).toString('base64')}">`).join('')}</body>`);
+  const shot = await page.screenshot({ type: 'jpeg', quality: 70 });
+  console.log('SHEET ' + files.join(','));
+  console.log('SHEET_B64 ' + shot.toString('base64'));
+}
 await browser.close();
 console.log(`rendered ${made} pins, ${failed} skipped`);
