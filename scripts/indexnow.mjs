@@ -1,6 +1,7 @@
 // Pings IndexNow (Bing, Yandex, Seznam, Naver and others) with pages changed in the last push.
 // Run by .github/workflows/indexnow.yml after Cloudflare has deployed main.
 // Usage: node scripts/indexnow.mjs <before-sha> <after-sha>
+//    or: node scripts/indexnow.mjs --slugs a,b   (scheduled releases, from release.yml)
 import { execSync } from 'node:child_process';
 
 const HOST = 'garagerecoverylab.com';
@@ -14,7 +15,9 @@ async function sitemapUrls() {
 }
 
 let changed = [];
-try {
+if (before === '--slugs') {
+  changed = after.split(',').filter(Boolean).map((s) => `src/content/articles/${s}.md`);
+} else try {
   if (!before || /^0+$/.test(before)) throw new Error('no base commit');
   changed = execSync(`git diff --name-only ${before} ${after}`).toString().trim().split('\n').filter(Boolean);
 } catch {

@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { isLive } from '../data/live';
 import Base from '../layouts/Base.astro';
 import { categories } from '../data/categories';
 import Hero, { pexelsSrc } from '../components/Hero.astro';
@@ -9,7 +10,7 @@ export async function getStaticPaths() {
   return categories.map((c) => ({ params: { category: c.slug }, props: { cat: c } }));
 }
 const { cat } = Astro.props;
-const articles = (await getCollection('articles', ({ data }) => !data.draft && data.category === cat.key))
+const articles = (await getCollection('articles', ({ data }) => isLive(data) && data.category === cat.key))
   .sort((a, b) => b.data.updated.valueOf() - a.data.updated.valueOf());
 ---
 <Base title={`${cat.title}: Reviews and Buying Guides`} description={cat.blurb} image={cat.hero && pexelsSrc(cat.hero.pexelsId)}>
