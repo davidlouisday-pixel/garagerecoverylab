@@ -1,7 +1,8 @@
 # Scheduled releases. Guides with a future `published:` date are left out of the build until that day.
 # Each morning this renders any missing Pinterest rotation pins, records today's guide releases in
 # RELEASES.md, and pushes to main every day, which makes Cloudflare rebuild the site so new guides
-# and the day's scheduled pins (src/data/pins.ts) go out. Then it pings IndexNow for new guides.
+# and the day's scheduled pins (src/data/pins.ts) go out. Then it pings IndexNow for new guides and posts
+# each new guide's carousel (public/ig/<slug>/) to Instagram.
 name: Scheduled release
 on:
   schedule:
@@ -32,6 +33,10 @@ jobs:
           npm i --no-save --no-audit --no-fund playwright@1.49.1
           npx playwright install --with-deps chromium
           node scripts/make-auto-pins.mjs
+      - name: Render missing Instagram carousels
+        # Never blocks the release: a guide whose carousel fails is retried the next morning.
+        continue-on-error: true
+        run: node scripts/make-carousels.mjs
       - name: Record the day and push
         run: |
           today="${{ steps.due.outputs.today }}"
@@ -43,7 +48,7 @@ jobs:
           echo "$today" > .github/last-rebuild
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add RELEASES.md .github/last-rebuild public/pins/auto
+          git add RELEASES.md .github/last-rebuild public/pins/auto public/ig
           git diff --cached --quiet && { echo "Nothing to push."; exit 0; }
           git commit -m "Daily rebuild ${today}${slugs:+: release ${slugs}}"
           git pull --rebase origin main
@@ -66,3 +71,10 @@ jobs:
       - name: Ping IndexNow
         if: env.sha != '' && steps.due.outputs.slugs != ''
         run: node scripts/indexnow.mjs --slugs "${{ steps.due.outputs.slugs }}"
+      - name: Post today's guides to Instagram
+        # Skips itself until the IG_TOKEN secret exists, and never fails the release.
+        if: env.sha != '' && steps.due.outputs.slugs != ''
+        continue-on-error: true
+        run: node scripts/post-instagram.mjs --slugs "${{ steps.due.outputs.slugs }}"
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
