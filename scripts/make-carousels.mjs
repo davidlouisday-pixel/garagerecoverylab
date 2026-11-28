@@ -33,7 +33,8 @@ const PRICED = new Set(['roundup', 'review', 'versus']);
 const COLD = new Set(['cold-plunge', 'massage-chair']);
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const sents = (s) => s.match(/[^.?!]+[.?!]+(\s|$)/g)?.map((x) => x.trim()) ?? [s];
+// Sentence split that keeps "U.S.", "e.g.", "FoodSafety.gov" and decimals like "2.5" inside their sentence.
+const sents = (s) => s.match(/(?:\bU\.S\.(?!\s*$)|\b[A-Z]\.(?=[A-Z]\.|[,;]|\s+[a-z0-9])|\b(?:e\.g|i\.e|vs|approx|Dr|Mr|Ms|St|No)\.|\.(?=[a-z0-9])|[^.?!])+[.?!]+(?=\s|$)/g)?.map((x) => x.trim()) ?? [s];
 const clip = (s, n) => (s.length <= n ? s : s.slice(0, n - 1).replace(/\s+\S*$/, '') + '…');
 // Whole sentences up to n characters, so a slide never cuts a claim in half.
 const sentences = (s, n) => { let out = ''; for (const x of sents(s)) { if ((out + ' ' + x).trim().length > n) break; out = (out + ' ' + x).trim(); } return out || clip(s, n); };
